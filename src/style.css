@@ -1,0 +1,15 @@
+
+
+#myText, #submitAddProject, #markDone, #delete {
+  display: none;
+}
+
+#newTodo{
+  display: none;
+}
+
+.active {
+  font-weight: bold;
+  color: black;
+  text-decoration:none;
+}
