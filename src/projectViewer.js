@@ -9,11 +9,11 @@ function render() {
     let checkboxTab;
 
     if (document.getElementById('incomplete').classList.contains("active")) {
-        activeTab = obj.todolist;
+        activeTab = createdProjects[obj].todolist;
         checkboxTab = "incomplete";
     }
     else if (document.getElementById('complete').classList.contains("active")) {
-        activeTab = obj.completed;
+        activeTab = createdProjects[obj].completed;
         checkboxTab = "completed";
     }
 
@@ -34,8 +34,12 @@ function render() {
     for (let prop in activeTab) {
 
         let count = 0;
+        
 
         if (activeTab.hasOwnProperty(prop)) {
+
+            console.log(activeTab[prop]); 
+
             count++;
 
             let table = document.getElementById("myTable");
@@ -44,7 +48,7 @@ function render() {
             checkbox.type = "checkbox";
             checkbox.name = "checkbox";
             checkbox.value = checkboxTab;
-            checkbox.id = 
+            checkbox.id = activeTab[prop].project + "/" + activeTab[prop].itemId;
             row.insertCell(0).appendChild(checkbox);
             row.insertCell(1).innerHTML = activeTab[prop].name;
             row.insertCell(2).innerHTML = activeTab[prop].description;
@@ -102,7 +106,7 @@ function submitAddProjectNull() {
 
 document.getElementById('submitAddTodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'none'
-    obj.todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
+    createdProjects[obj].todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
     render();
 })
 

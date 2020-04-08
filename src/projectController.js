@@ -20,15 +20,15 @@ createProject('Default_New');
 createProject('Family Stuff');
 
 {
-    let obj = createdProjects[0];
-obj.todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2" });
-obj.todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1" });
-obj.todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1" });
+    let obj = 0;
+createdProjects[obj].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj});
+createdProjects[obj].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj});
+createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj});
 
-obj = createdProjects[1];
-obj.todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2" });
-obj.todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1" });
-obj.todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1" });
+obj = 1;
+createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
+createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
+createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj});
 }
 
 
@@ -36,12 +36,12 @@ console.log(createdProjects[0])
 console.log(createdProjects[1])
 
 document.getElementById("projects").addEventListener("change", (event) => {
-    obj = createdProjects[event.target.value];
+    obj = event.target.value;
     render();
 });
 
 
-let obj = createdProjects[0];
+let obj = 0;
 
 class ToDo {
     constructor(name, description, dueDate, priority) {
@@ -50,14 +50,14 @@ class ToDo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.project = obj;
-        this.itemId = obj.todolist.length;
+        this.itemId = createdProjects[obj].todolist.length;
     }
 }
 
 
 document.getElementById("submitAddProject").addEventListener("click", function() {
     submitAddProjectNull();
-    obj = createdProjects[document.getElementById('projects').options.length - 1];
+    obj = document.getElementById('projects').options.length - 1;
     render();
 
 });
@@ -68,10 +68,14 @@ document.getElementById('markDone').addEventListener("click", function() {
 
 if(checkboxes[i].value === "allIncomplete") {
 
+    
     if (checkboxes[i].checked) {
-        obj.completed.push(createdProjects[obj.todolist[checkboxes.length-i-1]]);
-        obj.todolist.splice(checkboxes.length-i-1,1);
-        console.log(obj.completed);
+        let str = checkboxes[i].id;
+        let obj = str.match(/^\d+/);
+        let itemId = str.match(/\d+$/);
+        createdProjects[obj].completed.push(createdProjects[obj].todolist[createdProjects[obj].todolist.length-itemId]);
+         createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
+         console.log(createdProjects[obj].completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
@@ -83,9 +87,13 @@ if(checkboxes[i].value === "allIncomplete") {
 
 else {
     if (checkboxes[i].checked) {
-        obj.completed.push(obj.todolist[checkboxes.length-i-1]);
-        obj.todolist.splice(checkboxes.length-i-1,1);
-        console.log(obj.completed);
+        createdProjects[obj].completed.push(createdProjects[obj].todolist[checkboxes.length-i-1]);
+        createdProjects[obj].todolist.splice(checkboxes.length-i-1,1);
+        console.log(createdProjects[obj].completed);
+
+
+
+
 
     } else {
         
