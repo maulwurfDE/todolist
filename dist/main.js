@@ -171,7 +171,7 @@ class ToDo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.project = obj;
-        this.itemId = createdProjects[obj].todolist.length;
+        this.itemId = createdProjects[obj].todolist.length+1;
     }
 }
 
