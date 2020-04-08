@@ -140,27 +140,29 @@ function createProject(title) {
 createProject('Default_New');
 createProject('Family Stuff');
 
+{
+    let obj = createdProjects[0];
+obj.todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2" });
+obj.todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1" });
+obj.todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1" });
 
-createdProjects[0].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2" });
-createdProjects[0].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1" });
-createdProjects[0].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1" });
-
-createdProjects[1].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2" });
-createdProjects[1].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1" });
-createdProjects[1].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1" });
-
+obj = createdProjects[1];
+obj.todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2" });
+obj.todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1" });
+obj.todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1" });
+}
 
 
 console.log(createdProjects[0])
 console.log(createdProjects[1])
 
 document.getElementById("projects").addEventListener("change", (event) => {
-    obj = createdProjects[event.target.value].todolist;
+    obj = createdProjects[event.target.value];
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 });
 
 
-let obj = createdProjects[0].todolist;
+let obj = createdProjects[0];
 
 class ToDo {
     constructor(name, description, dueDate, priority) {
@@ -168,17 +170,54 @@ class ToDo {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.done = false;
+        this.project = obj;
+        this.itemId = obj.todolist.length;
     }
 }
 
 
 document.getElementById("submitAddProject").addEventListener("click", function() {
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["submitAddProjectNull"])();
-    obj = createdProjects[document.getElementById('projects').options.length - 1].todolist;
+    obj = createdProjects[document.getElementById('projects').options.length - 1];
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
 });
+
+document.getElementById('markDone').addEventListener("click", function() { 
+    let checkboxes = document.querySelectorAll("input[name=checkbox]");
+    for (var i = 0; i < checkboxes.length; i++) {
+
+if(checkboxes[i].value === "allIncomplete") {
+
+    if (checkboxes[i].checked) {
+        obj.completed.push(createdProjects[obj.todolist[checkboxes.length-i-1]]);
+        obj.todolist.splice(checkboxes.length-i-1,1);
+        console.log(obj.completed);
+  //    console.log(obj.completed);
+  //    console.log(obj.completed);
+  //    console.log(obj.completed);
+
+    }
+
+
+}
+
+else {
+    if (checkboxes[i].checked) {
+        obj.completed.push(obj.todolist[checkboxes.length-i-1]);
+        obj.todolist.splice(checkboxes.length-i-1,1);
+        console.log(obj.completed);
+
+    } else {
+        
+    }
+
+}
+    }
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+
+})
+
 
 
 
@@ -203,11 +242,37 @@ function render() {
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
-    for (let prop in _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]) {
+    let activeTab;
+    let checkboxTab;
+
+    if (document.getElementById('incomplete').classList.contains("active")) {
+        activeTab = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"].todolist;
+        checkboxTab = "incomplete";
+    }
+    else if (document.getElementById('complete').classList.contains("active")) {
+        activeTab = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"].completed;
+        checkboxTab = "completed";
+    }
+
+    else if (document.getElementById('allTodos').classList.contains("active")) {
+        checkboxTab = "allIncomplete";
+        activeTab = [];
+        for (let i = 0; i < _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"].length; i++) {
+           activeTab = activeTab.concat(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][i].todolist);
+           
+          //   for (let e = 0; e < createdProjects[i].todolist.length; e++) {
+             //   activeTab.push(createdProjects[i][e]);
+            // }
+        }
+        console.log(activeTab);
+        
+    }
+
+    for (let prop in activeTab) {
 
         let count = 0;
 
-        if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"].hasOwnProperty(prop)) {
+        if (activeTab.hasOwnProperty(prop)) {
             count++;
 
             let table = document.getElementById("myTable");
@@ -215,15 +280,17 @@ function render() {
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
             checkbox.name = "checkbox";
-            checkbox.value = "value";
-            checkbox.id = "checkbox" + count;
+            checkbox.value = checkboxTab;
+            checkbox.id = 
             row.insertCell(0).appendChild(checkbox);
-            row.insertCell(1).innerHTML = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"][prop].name;
-            row.insertCell(2).innerHTML = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"][prop].description;
-            row.insertCell(3).innerHTML = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"][prop].dueDate;
-            row.insertCell(4).innerHTML = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"][prop].priority;
+            row.insertCell(1).innerHTML = activeTab[prop].name;
+            row.insertCell(2).innerHTML = activeTab[prop].description;
+            row.insertCell(3).innerHTML = activeTab[prop].dueDate;
+            row.insertCell(4).innerHTML = activeTab[prop].priority;
         }
     }
+
+    displayOptions();
 }
 
 const option = document.getElementById('projects')
@@ -272,35 +339,51 @@ function submitAddProjectNull() {
 
 document.getElementById('submitAddTodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'none'
-    _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"].unshift(new _projectController_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
+    _projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"].todolist.unshift(new _projectController_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
     render();
 })
 
+function displayOptions() {
 let checkboxes = document.querySelectorAll("input[name=checkbox]");
-
-console.log(checkboxes);
+console.log(document.querySelectorAll("input[name=checkbox]"));
 let checkedCount = 0;
 for (var i = 0; i < checkboxes.length; i++) {
     let thisCheckbox = checkboxes[i];
     thisCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            checkedCount++;
-            document.getElementById("delete").style.display = "inline";
-            document.getElementById("markDone").style.display = "inline";
+            if(this.value === "incomplete") {
+                checkedCount++;
+                document.getElementById("delete").style.display = "inline";
+                document.getElementById("markDone").style.display = "inline";
+            }
+            else if(this.value === "completed") {
+                checkedCount++;
+                document.getElementById("undo").style.display = "inline";
+                document.getElementById("delete").style.display = "inline";
+            }
+
+            else if(this.value === "allIncomplete") {
+                checkedCount++;
+                document.getElementById("delete").style.display = "inline";
+                document.getElementById("markDone").style.display = "inline";                
+            }
+
         } else {
             checkedCount--;
             if (checkedCount == 0) {
                 document.getElementById("delete").style.display = "none";
                 document.getElementById("markDone").style.display = "none";
+                document.getElementById("undo").style.display = "none";
 
             }
             console.log("it's unchecked");
         }
+    
     });
 }
+};
 
 (function activeLink() {
-    var links = document.getElementById('links').children
     var complete = document.getElementById('complete')
     var allTodos = document.getElementById('allTodos')
     var incomplete = document.getElementById('incomplete')
@@ -309,13 +392,16 @@ for (var i = 0; i < checkboxes.length; i++) {
         allTodos.classList.remove("active");
         incomplete.classList.remove("active");
         e.target.classList.add("active");
+        document.getElementById("delete").style.display = "none";
+        document.getElementById("markDone").style.display = "none";
+        document.getElementById("undo").style.display = "none";
+        render();
     })
 }())
 
 document.getElementById('addtodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'block'
 })
-
 
 
 

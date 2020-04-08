@@ -5,11 +5,37 @@ function render() {
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
-    for (let prop in obj) {
+    let activeTab;
+    let checkboxTab;
+
+    if (document.getElementById('incomplete').classList.contains("active")) {
+        activeTab = obj.todolist;
+        checkboxTab = "incomplete";
+    }
+    else if (document.getElementById('complete').classList.contains("active")) {
+        activeTab = obj.completed;
+        checkboxTab = "completed";
+    }
+
+    else if (document.getElementById('allTodos').classList.contains("active")) {
+        checkboxTab = "allIncomplete";
+        activeTab = [];
+        for (let i = 0; i < createdProjects.length; i++) {
+           activeTab = activeTab.concat(createdProjects[i].todolist);
+           
+          //   for (let e = 0; e < createdProjects[i].todolist.length; e++) {
+             //   activeTab.push(createdProjects[i][e]);
+            // }
+        }
+        console.log(activeTab);
+        
+    }
+
+    for (let prop in activeTab) {
 
         let count = 0;
 
-        if (obj.hasOwnProperty(prop)) {
+        if (activeTab.hasOwnProperty(prop)) {
             count++;
 
             let table = document.getElementById("myTable");
@@ -17,15 +43,17 @@ function render() {
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
             checkbox.name = "checkbox";
-            checkbox.value = "value";
-            checkbox.id = "checkbox" + count;
+            checkbox.value = checkboxTab;
+            checkbox.id = 
             row.insertCell(0).appendChild(checkbox);
-            row.insertCell(1).innerHTML = obj[prop].name;
-            row.insertCell(2).innerHTML = obj[prop].description;
-            row.insertCell(3).innerHTML = obj[prop].dueDate;
-            row.insertCell(4).innerHTML = obj[prop].priority;
+            row.insertCell(1).innerHTML = activeTab[prop].name;
+            row.insertCell(2).innerHTML = activeTab[prop].description;
+            row.insertCell(3).innerHTML = activeTab[prop].dueDate;
+            row.insertCell(4).innerHTML = activeTab[prop].priority;
         }
     }
+
+    displayOptions();
 }
 
 const option = document.getElementById('projects')
@@ -74,35 +102,51 @@ function submitAddProjectNull() {
 
 document.getElementById('submitAddTodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'none'
-    obj.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
+    obj.todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
     render();
 })
 
+function displayOptions() {
 let checkboxes = document.querySelectorAll("input[name=checkbox]");
-
-console.log(checkboxes);
+console.log(document.querySelectorAll("input[name=checkbox]"));
 let checkedCount = 0;
 for (var i = 0; i < checkboxes.length; i++) {
     let thisCheckbox = checkboxes[i];
     thisCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            checkedCount++;
-            document.getElementById("delete").style.display = "inline";
-            document.getElementById("markDone").style.display = "inline";
+            if(this.value === "incomplete") {
+                checkedCount++;
+                document.getElementById("delete").style.display = "inline";
+                document.getElementById("markDone").style.display = "inline";
+            }
+            else if(this.value === "completed") {
+                checkedCount++;
+                document.getElementById("undo").style.display = "inline";
+                document.getElementById("delete").style.display = "inline";
+            }
+
+            else if(this.value === "allIncomplete") {
+                checkedCount++;
+                document.getElementById("delete").style.display = "inline";
+                document.getElementById("markDone").style.display = "inline";                
+            }
+
         } else {
             checkedCount--;
             if (checkedCount == 0) {
                 document.getElementById("delete").style.display = "none";
                 document.getElementById("markDone").style.display = "none";
+                document.getElementById("undo").style.display = "none";
 
             }
             console.log("it's unchecked");
         }
+    
     });
 }
+};
 
 (function activeLink() {
-    var links = document.getElementById('links').children
     var complete = document.getElementById('complete')
     var allTodos = document.getElementById('allTodos')
     var incomplete = document.getElementById('incomplete')
@@ -111,13 +155,16 @@ for (var i = 0; i < checkboxes.length; i++) {
         allTodos.classList.remove("active");
         incomplete.classList.remove("active");
         e.target.classList.add("active");
+        document.getElementById("delete").style.display = "none";
+        document.getElementById("markDone").style.display = "none";
+        document.getElementById("undo").style.display = "none";
+        render();
     })
 }())
 
 document.getElementById('addtodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'block'
 })
-
 
 
 export { render, submitAddProjectNull }

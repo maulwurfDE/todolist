@@ -1,6 +1,6 @@
 
 
-#myText, #submitAddProject, #markDone, #delete {
+#myText, #submitAddProject, #markDone, #delete, #undo {
   display: none;
 }
 
