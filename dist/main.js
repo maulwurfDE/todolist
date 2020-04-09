@@ -99,6 +99,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/style.css":
+/*!********************************************************************************!*\
+  !*** ./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/style.css ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "style.css");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -111,6 +124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectViewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projectViewer.js */ "./src/projectViewer.js");
 
 __webpack_require__(/*! file-loader?name=[name].[ext]!./index.html */ "./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/index.html");
+__webpack_require__(/*! file-loader?name=[name].[ext]!./style.css */ "./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/style.css");
 
 Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
