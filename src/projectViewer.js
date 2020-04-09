@@ -58,17 +58,57 @@ function render() {
     }
 
     displayOptions();
+
+
 }
 
-const option = document.getElementById('projects')
-let count = 0;
-createdProjects.forEach(project => {
-    let opt = document.createElement('option')
-    opt.innerHTML = project.title
-    opt.setAttribute('value', count)
+
+
+
+    const option = document.getElementById('projects')
+    // option.getElementsByTagName("option")[0].innerHTML = "";
+    
+    // var element = option.getElementsByTagName("option"), index;
+    
+    // for (index = element.length - 1; index >= 0; index--) {
+    //    element[index].parentNode.removeChild(element[index]);
+    // }
+ 
+    function removeProjectDropdown() {
+    
+    var selectobject = document.getElementById("projects");
+for (var i=0; i<selectobject.length; i++) {
+   // console.log(createdProjects[obj].id);
+    if (selectobject.options[i].value == createdProjects[obj].id)
+        selectobject.remove(i);
+}
+
+    };
+
+
+    console.log(createdProjects);
+    
+        let count = 0;
+    createdProjects.forEach(proj => {
+        let opt = document.createElement('option')
+        opt.innerHTML = proj.title
+        
+        console.log(proj.id);
+        opt.setAttribute('value', proj.id)
+        option.appendChild(opt)
+        count++;
+    })
+
+    
+function createDefaultProjectDropdown() {
+
+    let opt = document.createElement('option');
+    opt.innerHTML = createdProjects[0].title;
+    opt.setAttribute('value', createdProjects[0].id)
     option.appendChild(opt)
-    count++;
-})
+
+    
+}
 
 
 document.getElementById("addproject").addEventListener("click", function() {
@@ -169,4 +209,4 @@ document.getElementById('addtodo').addEventListener('click', function() {
 })
 
 
-export { render, submitAddProjectNull }
+export { render, submitAddProjectNull, removeProjectDropdown, createDefaultProjectDropdown }

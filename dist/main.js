@@ -149,11 +149,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectViewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projectViewer.js */ "./src/projectViewer.js");
 
 
-class Project{
-    constructor(title){
+let projectCount = 0;
+
+class Project {
+    constructor(title) {
         this.title = title;
         this.todolist = [];
         this.completed = [];
+        this.id = projectCount++;
     }
 }
 
@@ -170,14 +173,14 @@ createProject('Family Stuff');
 
 {
     let obj = 0;
-createdProjects[obj].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj});
-createdProjects[obj].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj});
-createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj});
+    createdProjects[obj].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
 
-obj = 1;
-createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
-createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
-createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj});
+    obj = 1;
+    createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
 }
 
 
@@ -185,12 +188,15 @@ console.log(createdProjects[0])
 console.log(createdProjects[1])
 
 document.getElementById("projects").addEventListener("change", (event) => {
+    console.log(event.target.value);
     obj = event.target.value;
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 });
 
 
 let obj = 0;
+
+let todoId = 0;
 
 class ToDo {
     constructor(name, description, dueDate, priority) {
@@ -199,7 +205,7 @@ class ToDo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.project = obj;
-        this.itemId = createdProjects[obj].todolist.length+1;
+        this.itemId = ++todoId;
     }
 }
 
@@ -211,25 +217,41 @@ document.getElementById("submitAddProject").addEventListener("click", function()
 
 });
 
+document.getElementById('deleteproject').addEventListener("click", function() {
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["removeProjectDropdown"])();
+    createdProjects.splice(obj, 1);
+    obj = 0;
 
-document.getElementById('undo').addEventListener("click", function() { 
+    console.log("createdProjects length: " + createdProjects.length);
+    if (createdProjects.length === 0) {
+        createProject('Test');
+        Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["createDefaultProjectDropdown"])();
+        obj = 0;
+
+    }
+
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+});
+
+
+document.getElementById('undo').addEventListener("click", function() {
 
     let checkboxes = document.querySelectorAll("input[name=checkbox]");
     for (var i = 0; i < checkboxes.length; i++) {
-    
+
         if (checkboxes[i].checked) {
             let str = checkboxes[i].id;
             let obj = str.match(/^\d+/);
             let itemId = str.match(/\d+$/);
-       
-            for(let e = 0; e<createdProjects[obj].completed.length; e++) {
-                if(createdProjects[obj].completed[e].itemId == itemId) {
+
+            for (let e = 0; e < createdProjects[obj].completed.length; e++) {
+                if (createdProjects[obj].completed[e].itemId == itemId) {
                     createdProjects[obj].todolist.push(createdProjects[obj].completed[e]);
-                    createdProjects[obj].completed.splice(e,1);
-           
+                    createdProjects[obj].completed.splice(e, 1);
+
                 }
             }
-            
+
         }
 
     }
@@ -238,94 +260,89 @@ document.getElementById('undo').addEventListener("click", function() {
 });
 
 
-document.getElementById('markDone').addEventListener("click", function() { 
+document.getElementById('markDone').addEventListener("click", function() {
     let checkboxes = document.querySelectorAll("input[name=checkbox]");
     for (var i = 0; i < checkboxes.length; i++) {
 
-if(checkboxes[i].value === "allIncomplete") {
-
-    
-    if (checkboxes[i].checked) {
-        let str = checkboxes[i].id;
-        let obj = str.match(/^\d+/);
-        let itemId = str.match(/\d+$/);
+        if (checkboxes[i].value === "allIncomplete") {
 
 
-        for(let e = 0; e<createdProjects[obj].todolist.length; e++) {
-            if(createdProjects[obj].todolist[e].itemId == itemId) {
-                createdProjects[obj].completed.push(createdProjects[obj].todolist[e]);
-                createdProjects[obj].todolist.splice(e,1);
-       
-            }
-        }
-
-
-               console.log(createdProjects[obj].completed);
-  //    console.log(obj.completed);
-  //    console.log(obj.completed);
-  //    console.log(obj.completed);
-
-    }
-
-
-}
-
-else {
-    if (checkboxes[i].checked) {
-        createdProjects[obj].completed.push(createdProjects[obj].todolist[checkboxes.length-i-1]);
-        createdProjects[obj].todolist.splice(checkboxes.length-i-1,1);
-        console.log(createdProjects[obj].completed);
-
-
-
-
-
-    } else {
-        
-    }
-
-}
-    }
-    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
-
-})
-
-document.getElementById('delete').addEventListener('click', function(){
-    let checkboxes = document.querySelectorAll("input[name=checkbox]");
-    console.log(createdProjects[0])
-
-  
-
-  
-    
-        for(let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
-
                 let str = checkboxes[i].id;
                 let obj = str.match(/^\d+/);
                 let itemId = str.match(/\d+$/);
 
-                if(checkboxes[i].value === "completed") {
-                    createdProjects[obj].completed.splice(createdProjects[obj].completed.length-itemId,1);
-                                
-                        }
-            
-                else {
-                    createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
-                  }
+
+                for (let e = 0; e < createdProjects[obj].todolist.length; e++) {
+                    if (createdProjects[obj].todolist[e].itemId == itemId) {
+                        createdProjects[obj].completed.push(createdProjects[obj].todolist[e]);
+                        createdProjects[obj].todolist.splice(e, 1);
+
+                    }
+                }
+
+
+                console.log(createdProjects[obj].completed);
+                //    console.log(obj.completed);
+                //    console.log(obj.completed);
+                //    console.log(obj.completed);
+
+            }
+
+
+        } else {
+            if (checkboxes[i].checked) {
+                createdProjects[obj].completed.push(createdProjects[obj].todolist[checkboxes.length - i - 1]);
+                createdProjects[obj].todolist.splice(checkboxes.length - i - 1, 1);
+                console.log(createdProjects[obj].completed);
+
+
+
+
+
+            } else {
+
             }
 
         }
+    }
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+
+})
+
+document.getElementById('delete').addEventListener('click', function() {
+    let checkboxes = document.querySelectorAll("input[name=checkbox]");
+    console.log(createdProjects[0])
+
+
+
+
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+
+            let str = checkboxes[i].id;
+            let obj = str.match(/^\d+/);
+            let itemId = str.match(/\d+$/);
+
+            if (checkboxes[i].value === "completed") {
+                createdProjects[obj].completed.splice(createdProjects[obj].completed.length - itemId, 1);
+
+            } else {
+                createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length - itemId, 1);
+            }
+        }
+
+    }
 
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
     // checkboxes.forEach()
-  //  for(let i = 0; i < createdProjects.length; i++){
+    //  for(let i = 0; i < createdProjects.length; i++){
     //    for(let j = 0; j < createdProjects[i].todolist.length; j++){
 
-      //  }
+    //  }
     // }
 })
-
 
 
 
@@ -336,13 +353,15 @@ document.getElementById('delete').addEventListener('click', function(){
 /*!******************************!*\
   !*** ./src/projectViewer.js ***!
   \******************************/
-/*! exports provided: render, submitAddProjectNull */
+/*! exports provided: render, submitAddProjectNull, removeProjectDropdown, createDefaultProjectDropdown */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitAddProjectNull", function() { return submitAddProjectNull; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeProjectDropdown", function() { return removeProjectDropdown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDefaultProjectDropdown", function() { return createDefaultProjectDropdown; });
 /* harmony import */ var _projectController_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projectController.js */ "./src/projectController.js");
 
 
@@ -404,17 +423,57 @@ function render() {
     }
 
     displayOptions();
+
+
 }
 
-const option = document.getElementById('projects')
-let count = 0;
-_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"].forEach(project => {
-    let opt = document.createElement('option')
-    opt.innerHTML = project.title
-    opt.setAttribute('value', count)
+
+
+
+    const option = document.getElementById('projects')
+    // option.getElementsByTagName("option")[0].innerHTML = "";
+    
+    // var element = option.getElementsByTagName("option"), index;
+    
+    // for (index = element.length - 1; index >= 0; index--) {
+    //    element[index].parentNode.removeChild(element[index]);
+    // }
+ 
+    function removeProjectDropdown() {
+    
+    var selectobject = document.getElementById("projects");
+for (var i=0; i<selectobject.length; i++) {
+   // console.log(createdProjects[obj].id);
+    if (selectobject.options[i].value == _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]].id)
+        selectobject.remove(i);
+}
+
+    };
+
+
+    console.log(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"]);
+    
+        let count = 0;
+    _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"].forEach(proj => {
+        let opt = document.createElement('option')
+        opt.innerHTML = proj.title
+        
+        console.log(proj.id);
+        opt.setAttribute('value', proj.id)
+        option.appendChild(opt)
+        count++;
+    })
+
+    
+function createDefaultProjectDropdown() {
+
+    let opt = document.createElement('option');
+    opt.innerHTML = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][0].title;
+    opt.setAttribute('value', _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][0].id)
     option.appendChild(opt)
-    count++;
-})
+
+    
+}
 
 
 document.getElementById("addproject").addEventListener("click", function() {
