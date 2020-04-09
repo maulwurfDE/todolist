@@ -86,6 +86,19 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/index.html":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/index.html ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "index.html");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -97,6 +110,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectViewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projectViewer.js */ "./src/projectViewer.js");
 
+__webpack_require__(/*! file-loader?name=[name].[ext]!./index.html */ "./node_modules/file-loader/dist/cjs.js?name=[name].[ext]!./src/index.html");
 
 Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
@@ -194,9 +208,18 @@ if(checkboxes[i].value === "allIncomplete") {
         let str = checkboxes[i].id;
         let obj = str.match(/^\d+/);
         let itemId = str.match(/\d+$/);
-        createdProjects[obj].completed.push(createdProjects[obj].todolist[createdProjects[obj].todolist.length-itemId]);
-         createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
-         console.log(createdProjects[obj].completed);
+
+
+        for(let e = 0; e<createdProjects[obj].todolist.length; e++) {
+            if(createdProjects[obj].todolist[e].itemId == itemId) {
+                createdProjects[obj].completed.push(createdProjects[obj].todolist[e]);
+                createdProjects[obj].todolist.splice(e,1);
+       
+            }
+        }
+
+
+               console.log(createdProjects[obj].completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
@@ -225,6 +248,43 @@ else {
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
 })
+
+document.getElementById('delete').addEventListener('click', function(){
+    let checkboxes = document.querySelectorAll("input[name=checkbox]");
+    console.log(createdProjects[0])
+
+  
+
+  
+    
+        for(let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+
+                let str = checkboxes[i].id;
+                let obj = str.match(/^\d+/);
+                let itemId = str.match(/\d+$/);
+
+                if(checkboxes[i].value === "completed") {
+                    createdProjects[obj].completed.splice(createdProjects[obj].completed.length-itemId,1);
+                                
+                        }
+            
+                else {
+                    createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
+                  }
+            }
+
+        }
+
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+    // checkboxes.forEach()
+  //  for(let i = 0; i < createdProjects.length; i++){
+    //    for(let j = 0; j < createdProjects[i].todolist.length; j++){
+
+      //  }
+    // }
+})
+
 
 
 
@@ -328,7 +388,6 @@ document.getElementById("addproject").addEventListener("click", function() {
 function submitAddProjectNull() {
 
     Object(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createProject"])(document.getElementById('myText').value);
-    console.log(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"]);
 
     let opt = document.createElement('option');
     opt.innerHTML = document.getElementById('myText').value;
@@ -357,7 +416,6 @@ document.getElementById('submitAddTodo').addEventListener('click', function() {
 
 function displayOptions() {
 let checkboxes = document.querySelectorAll("input[name=checkbox]");
-console.log(document.querySelectorAll("input[name=checkbox]"));
 let checkedCount = 0;
 for (var i = 0; i < checkboxes.length; i++) {
     let thisCheckbox = checkboxes[i];
@@ -388,7 +446,7 @@ for (var i = 0; i < checkboxes.length; i++) {
                 document.getElementById("undo").style.display = "none";
 
             }
-            console.log("it's unchecked");
+            // console.log("it's unchecked");
         }
     
     });
