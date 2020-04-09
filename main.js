@@ -211,6 +211,33 @@ document.getElementById("submitAddProject").addEventListener("click", function()
 
 });
 
+
+document.getElementById('undo').addEventListener("click", function() { 
+
+    let checkboxes = document.querySelectorAll("input[name=checkbox]");
+    for (var i = 0; i < checkboxes.length; i++) {
+    
+        if (checkboxes[i].checked) {
+            let str = checkboxes[i].id;
+            let obj = str.match(/^\d+/);
+            let itemId = str.match(/\d+$/);
+       
+            for(let e = 0; e<createdProjects[obj].completed.length; e++) {
+                if(createdProjects[obj].completed[e].itemId == itemId) {
+                    createdProjects[obj].todolist.push(createdProjects[obj].completed[e]);
+                    createdProjects[obj].completed.splice(e,1);
+           
+                }
+            }
+            
+        }
+
+    }
+
+    Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+});
+
+
 document.getElementById('markDone').addEventListener("click", function() { 
     let checkboxes = document.querySelectorAll("input[name=checkbox]");
     for (var i = 0; i < checkboxes.length; i++) {
