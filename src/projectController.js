@@ -73,9 +73,18 @@ if(checkboxes[i].value === "allIncomplete") {
         let str = checkboxes[i].id;
         let obj = str.match(/^\d+/);
         let itemId = str.match(/\d+$/);
-        createdProjects[obj].completed.push(createdProjects[obj].todolist[createdProjects[obj].todolist.length-itemId]);
-         createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
-         console.log(createdProjects[obj].completed);
+
+
+        for(let e = 0; e<createdProjects[obj].todolist.length; e++) {
+            if(createdProjects[obj].todolist[e].itemId == itemId) {
+                createdProjects[obj].completed.push(createdProjects[obj].todolist[e]);
+                createdProjects[obj].todolist.splice(e,1);
+       
+            }
+        }
+
+
+               console.log(createdProjects[obj].completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
   //    console.log(obj.completed);
@@ -104,5 +113,42 @@ else {
     render();
 
 })
+
+document.getElementById('delete').addEventListener('click', function(){
+    let checkboxes = document.querySelectorAll("input[name=checkbox]");
+    console.log(createdProjects[0])
+
+  
+
+  
+    
+        for(let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+
+                let str = checkboxes[i].id;
+                let obj = str.match(/^\d+/);
+                let itemId = str.match(/\d+$/);
+
+                if(checkboxes[i].value === "completed") {
+                    createdProjects[obj].completed.splice(createdProjects[obj].completed.length-itemId,1);
+                                
+                        }
+            
+                else {
+                    createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length-itemId,1);
+                  }
+            }
+
+        }
+
+    render();
+    // checkboxes.forEach()
+  //  for(let i = 0; i < createdProjects.length; i++){
+    //    for(let j = 0; j < createdProjects[i].todolist.length; j++){
+
+      //  }
+    // }
+})
+
 
 export {Project, createProject, createdProjects, obj, ToDo}

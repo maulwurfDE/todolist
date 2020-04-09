@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nearmint/todolist#readme",
   "devDependencies": {
+    "file-loader": "^6.0.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   }

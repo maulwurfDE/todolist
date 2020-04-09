@@ -83,7 +83,6 @@ document.getElementById("addproject").addEventListener("click", function() {
 function submitAddProjectNull() {
 
     createProject(document.getElementById('myText').value);
-    console.log(createdProjects);
 
     let opt = document.createElement('option');
     opt.innerHTML = document.getElementById('myText').value;
@@ -112,7 +111,6 @@ document.getElementById('submitAddTodo').addEventListener('click', function() {
 
 function displayOptions() {
 let checkboxes = document.querySelectorAll("input[name=checkbox]");
-console.log(document.querySelectorAll("input[name=checkbox]"));
 let checkedCount = 0;
 for (var i = 0; i < checkboxes.length; i++) {
     let thisCheckbox = checkboxes[i];
@@ -143,7 +141,7 @@ for (var i = 0; i < checkboxes.length; i++) {
                 document.getElementById("undo").style.display = "none";
 
             }
-            console.log("it's unchecked");
+            // console.log("it's unchecked");
         }
     
     });
