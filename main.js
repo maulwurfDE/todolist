@@ -396,14 +396,16 @@ function render() {
         
     }
 
+ 
     for (let prop in activeTab) {
 
         let count = 0;
+    
         
 
         if (activeTab.hasOwnProperty(prop)) {
 
-            console.log(activeTab[prop]); 
+            // console.log(activeTab[prop]); 
 
             count++;
 
@@ -416,9 +418,39 @@ function render() {
             checkbox.id = activeTab[prop].project + "/" + activeTab[prop].itemId;
             row.insertCell(0).appendChild(checkbox);
             row.insertCell(1).innerHTML = activeTab[prop].name;
-            row.insertCell(2).innerHTML = activeTab[prop].description;
-            row.insertCell(3).innerHTML = activeTab[prop].dueDate;
-            row.insertCell(4).innerHTML = activeTab[prop].priority;
+            row.insertCell(2).innerHTML = activeTab[prop].dueDate;
+            count++;
+            let row2 = table.insertRow(count);
+            row2.insertCell(0).innerHTML = "<strong>" + "Description: " + "</strong>" + activeTab[prop].description + "</div";
+            row2.style.display = 'none';
+            // row.insertCell(4).innerHTML = activeTab[prop].priority;
+            row.addEventListener("click", function() {
+
+                // console.log(row);
+                // console.log(document.getElementById("myTable").childNodes[1].childNodes[0]);
+                 for(let x = 0; x < document.getElementById("myTable").childNodes[1].children.length; x++) {
+                //     console.log(this);
+                     if(table.childNodes[1].childNodes[x] == this) {
+                //         let row = table.insertRow(x+1);
+                //         console.log("test");
+                //         row.insertCell(0).innerHTML = "<div id='test'><br/><br/> <strong>" + "Description: " + "</strong>" + activeTab[prop].description + "</div";
+                        if(document.getElementById("myTable").childNodes[1].childNodes[x+1].style.display === "inline")
+                document.getElementById("myTable").childNodes[1].childNodes[x+1].style.display = "none";
+                else {
+                    document.getElementById("myTable").childNodes[1].childNodes[x+1].style.display = "inline"; 
+                }
+                    return;
+                     }
+                 }
+                // console.log(this.innerHTML);
+                // let newCount = count;
+                // newCount++;
+                // console.log(newCount)
+                // // let paragraph = document.createElement('p')
+                //   console.log(activeTab[prop].description);
+                
+                
+            });
         }
     }
 
