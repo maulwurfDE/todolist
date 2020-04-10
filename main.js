@@ -178,9 +178,9 @@ createProject('Family Stuff');
     createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
 
     obj = 1;
-    createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
-    createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
-    createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "3", itemId: 1, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "2", itemId: 2, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "2", itemId: 3, project: obj });
 }
 
 
@@ -366,6 +366,52 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let selectedPriority = 0;
+
+document.getElementById("button1").addEventListener("click", function() {
+    if(document.getElementById("button1").style.border === '5px solid green') {
+        selectedPriority = 0;
+        document.getElementById("button1").style.border = '5px solid white'
+    }
+
+    else {
+    document.getElementById("button2").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid white'
+    document.getElementById("button1").style.border = '5px solid green';
+    selectedPriority = 1;
+    }
+    // document.getElementById("button1").style.borderWidth = '5px';
+})
+
+document.getElementById("button2").addEventListener("click", function() {
+    if(document.getElementById("button2").style.border === '5px solid yellow') {
+        selectedPriority = 0;
+        document.getElementById("button2").style.border = '5px solid white'
+    }
+    else {
+    document.getElementById("button1").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid white'
+    document.getElementById("button2").style.border = '5px solid yellow';
+    selectedPriority = 2;
+    }
+    // document.getElementById("button2").style.borderWidth = '5px';
+})
+
+document.getElementById("button3").addEventListener("click", function() {
+    if(document.getElementById("button3").style.border === '5px solid red') {
+        selectedPriority = 0;
+        document.getElementById("button3").style.border = '5px solid white'
+    }
+    else {
+    document.getElementById("button1").style.border = '5px solid white'
+    document.getElementById("button2").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid red';
+    selectedPriority = 3;
+    }
+    // document.getElementById("button3").style.borderWidth = '5px';
+})
+
+
 function render() {
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
@@ -419,6 +465,13 @@ function render() {
             row.insertCell(0).appendChild(checkbox);
             row.insertCell(1).innerHTML = activeTab[prop].name;
             row.insertCell(2).innerHTML = activeTab[prop].dueDate;
+            if(activeTab[prop].priority == 1){
+                row.style.backgroundColor = 'green'
+            } else if(activeTab[prop].priority == 2){
+                row.style.backgroundColor = 'yellow'
+            } else if(activeTab[prop].priority == 3){
+                row.style.backgroundColor = 'red'
+            } 
             count++;
             let row2 = table.insertRow(count);
             row2.insertCell(0).innerHTML = "<strong>" + "Description: " + "</strong>" + activeTab[prop].description + "</div";
@@ -542,7 +595,7 @@ function submitAddProjectNull() {
 
 document.getElementById('submitAddTodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'none'
-    _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]].todolist.unshift(new _projectController_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
+    _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]].todolist.unshift(new _projectController_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, selectedPriority));
     render();
 })
 
