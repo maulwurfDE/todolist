@@ -29,9 +29,9 @@ createProject('Family Stuff');
     createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
 
     obj = 1;
-    createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
-    createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
-    createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Help Mum", description: "some stuff", dueDate: "01-01-2021", priority: "3", itemId: 1, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "2", itemId: 2, project: obj });
+    createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "2", itemId: 3, project: obj });
 }
 
 

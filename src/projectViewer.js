@@ -1,6 +1,52 @@
 import { obj } from './projectController.js'
 import { createdProjects, createProject, ToDo } from './projectController.js'
 
+let selectedPriority = 0;
+
+document.getElementById("button1").addEventListener("click", function() {
+    if(document.getElementById("button1").style.border === '5px solid green') {
+        selectedPriority = 0;
+        document.getElementById("button1").style.border = '5px solid white'
+    }
+
+    else {
+    document.getElementById("button2").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid white'
+    document.getElementById("button1").style.border = '5px solid green';
+    selectedPriority = 1;
+    }
+    // document.getElementById("button1").style.borderWidth = '5px';
+})
+
+document.getElementById("button2").addEventListener("click", function() {
+    if(document.getElementById("button2").style.border === '5px solid yellow') {
+        selectedPriority = 0;
+        document.getElementById("button2").style.border = '5px solid white'
+    }
+    else {
+    document.getElementById("button1").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid white'
+    document.getElementById("button2").style.border = '5px solid yellow';
+    selectedPriority = 2;
+    }
+    // document.getElementById("button2").style.borderWidth = '5px';
+})
+
+document.getElementById("button3").addEventListener("click", function() {
+    if(document.getElementById("button3").style.border === '5px solid red') {
+        selectedPriority = 0;
+        document.getElementById("button3").style.border = '5px solid white'
+    }
+    else {
+    document.getElementById("button1").style.border = '5px solid white'
+    document.getElementById("button2").style.border = '5px solid white'
+    document.getElementById("button3").style.border = '5px solid red';
+    selectedPriority = 3;
+    }
+    // document.getElementById("button3").style.borderWidth = '5px';
+})
+
+
 function render() {
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
@@ -54,6 +100,13 @@ function render() {
             row.insertCell(0).appendChild(checkbox);
             row.insertCell(1).innerHTML = activeTab[prop].name;
             row.insertCell(2).innerHTML = activeTab[prop].dueDate;
+            if(activeTab[prop].priority == 1){
+                row.style.backgroundColor = 'green'
+            } else if(activeTab[prop].priority == 2){
+                row.style.backgroundColor = 'yellow'
+            } else if(activeTab[prop].priority == 3){
+                row.style.backgroundColor = 'red'
+            } 
             count++;
             let row2 = table.insertRow(count);
             row2.insertCell(0).innerHTML = "<strong>" + "Description: " + "</strong>" + activeTab[prop].description + "</div";
@@ -177,7 +230,7 @@ function submitAddProjectNull() {
 
 document.getElementById('submitAddTodo').addEventListener('click', function() {
     document.getElementById('newTodo').style.display = 'none'
-    createdProjects[obj].todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, document.getElementById('priority').value));
+    createdProjects[obj].todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, selectedPriority));
     render();
 })
 
