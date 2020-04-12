@@ -30,7 +30,7 @@
       <a href="#" id="allTodos">All Incomplete</a>
     </div>
     <input type="button" name="markDone" value="Complete" id="markDone">
-    <input type="button" id="undo" value="Undo" value="undo">
+    <input type="button" id="undo" value="Undo">
     <input type="button" name="delete" value="Delete" id="delete">
     <table style="width:75%" id="myTable">
      <th>Checkbox</th>
@@ -40,7 +40,22 @@
       <th>Priority</th> -->
     </table>
 
-
+    <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <!-- <h1>I am the Header</h1> -->
+      </div>
+      <div class="modal-content">
+        Title: <input type="text" id="editTitle"> <br>
+        Description: <input type="text" name="" id="editDescription"> <br>
+        Priority: <input type="text" name="" id="editPriority"> <br>
+        Date: <input type="text" name="" id="editDueDate"> <br>
+        <input type="button" value="Save" id="saveEdit">
+      </div>
+      <!-- <div class="modal-footer">
+        <h2>I am the Footer</h2>
+      </div> -->
+    </div>
 
     Create a new ToDo: <button name="addToDo" id="addtodo">New Task</button>
     <br />

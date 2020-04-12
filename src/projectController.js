@@ -1,7 +1,17 @@
 import { render, submitAddProjectNull, removeProjectDropdown, createDefaultProjectDropdown } from './projectViewer.js'
 
 let projectCount = 0;
+function storeProjects(){
+    let projects;
+    if(localStorage.getItem('projects') == null){
+        projects = []
+    } else {
+        projects = JSON.parse(localStorage.getItem('projects'))
+    }
+    return projects
+}
 
+const projects = storeProjects()
 class Project {
     constructor(title) {
         this.title = title;
@@ -13,9 +23,9 @@ class Project {
 
 let createdProjects = [];
 
-
 function createProject(title) {
     createdProjects.push(new Project(title))
+    localStorage.setItem('projects', createdProjects)
     return createdProjects
 }
 
@@ -33,6 +43,7 @@ createProject('Family Stuff');
     createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "2", itemId: 2, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "2", itemId: 3, project: obj });
 }
+localStorage.setItem('projects', JSON.stringify(createdProjects))
 
 
 console.log(createdProjects[0])
@@ -196,4 +207,4 @@ document.getElementById('delete').addEventListener('click', function() {
 })
 
 
-export { Project, createProject, createdProjects, obj, ToDo }
+export { Project, createProject, createdProjects, obj, ToDo, projects }
