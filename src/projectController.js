@@ -1,6 +1,5 @@
 import { render, submitAddProjectNull, removeProjectDropdown, createDefaultProjectDropdown } from './projectViewer.js'
-
-let projectCount = 0;
+import { format } from 'date-fns';
 let obj = 0;
 
 function storeProjects(){
@@ -19,11 +18,11 @@ class Project {
         this.title = title;
         this.todolist = [];
         this.completed = [];
-        this.id = projectCount++;
+        this.id = title;
     }
 }
 
-console.log(storeProjects());
+console.log(storeProjects()[4]);
 
 let createdProjects = storeProjects();
 
@@ -65,7 +64,12 @@ obj = 0;
 
 document.getElementById("projects").addEventListener("change", (event) => {
     console.log(event.target.value);
-    obj = event.target.value;
+    console.log(document.getElementById("projects"));
+    for(let e = 0; e < createdProjects.length; e++) {
+        if (createdProjects[e].title === event.target.value) {
+            obj = e;
+        }
+    }
     render();
 });
 
@@ -213,6 +217,8 @@ document.getElementById('delete').addEventListener('click', function() {
             } else {
                 createdProjects[obj].todolist.splice(createdProjects[obj].todolist.length - itemId, 1);
             }
+
+
         }
 
     }

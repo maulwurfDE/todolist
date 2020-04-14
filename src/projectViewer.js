@@ -45,7 +45,6 @@ document.getElementById("button3").addEventListener("click", function () {
 
 function render() {
 
-    console.log("test");
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
@@ -53,9 +52,6 @@ function render() {
     let checkboxTab;
 
     if (document.getElementById('incomplete').classList.contains("active")) {
-        console.log(createdProjects[0]);
-        console.log(createdProjects[1]);
-        console.log("projectViewer");
         activeTab = createdProjects[obj].todolist;
         checkboxTab = "incomplete";
     } else if (document.getElementById('complete').classList.contains("active")) {
@@ -247,7 +243,7 @@ function removeProjectDropdown() {
     var selectobject = document.getElementById("projects");
     for (var i = 0; i < selectobject.length; i++) {
         // console.log(createdProjects[obj].id);
-        if (selectobject.options[i].value == createdProjects[obj].id)
+        if (selectobject.options[i].value == createdProjects[obj].title)
             selectobject.remove(i);
     }
 
@@ -260,9 +256,8 @@ let count = 0;
 createdProjects.forEach(proj => {
     let opt = document.createElement('option')
     opt.innerHTML = proj.title
-
-    console.log(proj.id);
-    opt.setAttribute('value', proj.id)
+    console.log(createdProjects);
+    opt.setAttribute('value', proj.title)
     option.appendChild(opt)
     count++;
 })
@@ -272,7 +267,7 @@ function createDefaultProjectDropdown() {
 
     let opt = document.createElement('option');
     opt.innerHTML = createdProjects[0].title;
-    opt.setAttribute('value', createdProjects[0].id)
+    opt.setAttribute('value', createdProjects[0].title)
     option.appendChild(opt)
 
 
@@ -290,6 +285,7 @@ document.getElementById("addproject").addEventListener("click", function () {
 
 function submitAddProjectNull() {
 
+    console.log(document.getElementById('myText').value);
     createProject(document.getElementById('myText').value);
     
     let opt = document.createElement('option');
