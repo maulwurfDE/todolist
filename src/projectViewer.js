@@ -1,5 +1,5 @@
 import { obj } from './projectController.js'
-import { createdProjects, createProject, ToDo, projects } from './projectController.js'
+import { createdProjects, createProject, ToDo, projects, updateLocalstorage } from './projectController.js'
 
 let selectedPriority = 0;
 
@@ -44,6 +44,8 @@ document.getElementById("button3").addEventListener("click", function () {
 
 
 function render() {
+
+    console.log("test");
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
@@ -51,6 +53,9 @@ function render() {
     let checkboxTab;
 
     if (document.getElementById('incomplete').classList.contains("active")) {
+        console.log(createdProjects[0]);
+        console.log(createdProjects[1]);
+        console.log("projectViewer");
         activeTab = createdProjects[obj].todolist;
         checkboxTab = "incomplete";
     } else if (document.getElementById('complete').classList.contains("active")) {
@@ -303,13 +308,14 @@ function submitAddProjectNull() {
     
     document.getElementById('myText').value = "";
     
-    localStorage.setItem('projects', JSON.stringify(createdProjects))
+    // localStorage.setItem('projects', JSON.stringify(createdProjects))
     
 };
 
 document.getElementById('submitAddTodo').addEventListener('click', function () {
     document.getElementById('newTodo').style.display = 'none'
     createdProjects[obj].todolist.unshift(new ToDo(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, selectedPriority));
+    updateLocalstorage();
     render();
 })
 

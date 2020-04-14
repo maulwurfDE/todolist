@@ -1,17 +1,19 @@
 import { render, submitAddProjectNull, removeProjectDropdown, createDefaultProjectDropdown } from './projectViewer.js'
 
 let projectCount = 0;
+let obj = 0;
+
 function storeProjects(){
     let projects;
-    if(localStorage.getItem('projects') == null){
-        projects = []
-    } else {
+    if(localStorage.getItem('projects')){
         projects = JSON.parse(localStorage.getItem('projects'))
+    } else {
+        projects = []
     }
-    return projects
+    return projects;
 }
 
-const projects = storeProjects()
+// const projects = storeProjects()
 class Project {
     constructor(title) {
         this.title = title;
@@ -21,19 +23,30 @@ class Project {
     }
 }
 
-let createdProjects = [];
+console.log(storeProjects());
+
+let createdProjects = storeProjects();
+
+console.log(storeProjects());
 
 function createProject(title) {
     createdProjects.push(new Project(title))
-    localStorage.setItem('projects', createdProjects)
+    localStorage.setItem('projects', JSON.stringify(createdProjects))
     return createdProjects
 }
+
+console.log(storeProjects());
+if(createdProjects.length === 0) {
+
+    console.log("yes");
 
 createProject('Default_New');
 createProject('Family Stuff');
 
+
+
 {
-    let obj = 0;
+    obj = 0;
     createdProjects[obj].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
@@ -43,11 +56,12 @@ createProject('Family Stuff');
     createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "2", itemId: 2, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "2", itemId: 3, project: obj });
 }
-localStorage.setItem('projects', JSON.stringify(createdProjects))
 
+updateLocalstorage(); 
 
-console.log(createdProjects[0])
-console.log(createdProjects[1])
+}
+
+obj = 0;
 
 document.getElementById("projects").addEventListener("change", (event) => {
     console.log(event.target.value);
@@ -56,7 +70,7 @@ document.getElementById("projects").addEventListener("change", (event) => {
 });
 
 
-let obj = 0;
+
 
 let todoId = 0;
 
@@ -75,6 +89,7 @@ class ToDo {
 document.getElementById("submitAddProject").addEventListener("click", function() {
     submitAddProjectNull();
     obj = document.getElementById('projects').options.length - 1;
+
     render();
 
 });
@@ -91,6 +106,8 @@ document.getElementById('deleteproject').addEventListener("click", function() {
         obj = 0;
 
     }
+
+    updateLocalstorage();
 
     render();
 });
@@ -117,6 +134,8 @@ document.getElementById('undo').addEventListener("click", function() {
         }
 
     }
+
+    updateLocalstorage();
 
     render();
 });
@@ -168,6 +187,7 @@ document.getElementById('markDone').addEventListener("click", function() {
 
         }
     }
+    updateLocalstorage();
     render();
 
 })
@@ -197,6 +217,7 @@ document.getElementById('delete').addEventListener('click', function() {
 
     }
 
+    updateLocalstorage();
     render();
     // checkboxes.forEach()
     //  for(let i = 0; i < createdProjects.length; i++){
@@ -206,5 +227,8 @@ document.getElementById('delete').addEventListener('click', function() {
     // }
 })
 
+function updateLocalstorage() {
+    localStorage.setItem('projects', JSON.stringify(createdProjects))
+}
 
-export { Project, createProject, createdProjects, obj, ToDo, projects }
+export { Project, createProject, createdProjects, obj, ToDo, updateLocalstorage }
