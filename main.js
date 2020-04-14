@@ -136,7 +136,7 @@ Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 /*!**********************************!*\
   !*** ./src/projectController.js ***!
   \**********************************/
-/*! exports provided: Project, createProject, createdProjects, obj, ToDo, projects */
+/*! exports provided: Project, createProject, createdProjects, obj, ToDo, updateLocalstorage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -146,22 +146,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createdProjects", function() { return createdProjects; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "obj", function() { return obj; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToDo", function() { return ToDo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "projects", function() { return projects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateLocalstorage", function() { return updateLocalstorage; });
 /* harmony import */ var _projectViewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projectViewer.js */ "./src/projectViewer.js");
 
 
 let projectCount = 0;
+let obj = 0;
+
 function storeProjects(){
     let projects;
-    if(localStorage.getItem('projects') == null){
-        projects = []
-    } else {
+    if(localStorage.getItem('projects')){
         projects = JSON.parse(localStorage.getItem('projects'))
+    } else {
+        projects = []
     }
-    return projects
+    return projects;
 }
 
-const projects = storeProjects()
+// const projects = storeProjects()
 class Project {
     constructor(title) {
         this.title = title;
@@ -171,19 +173,30 @@ class Project {
     }
 }
 
-let createdProjects = [];
+console.log(storeProjects());
+
+let createdProjects = storeProjects();
+
+console.log(storeProjects());
 
 function createProject(title) {
     createdProjects.push(new Project(title))
-    localStorage.setItem('projects', createdProjects)
+    localStorage.setItem('projects', JSON.stringify(createdProjects))
     return createdProjects
 }
+
+console.log(storeProjects());
+if(createdProjects.length === 0) {
+
+    console.log("yes");
 
 createProject('Default_New');
 createProject('Family Stuff');
 
+
+
 {
-    let obj = 0;
+    obj = 0;
     createdProjects[obj].todolist.unshift({ name: "Homework", description: "English homework", dueDate: "01-01-2021", priority: "2", itemId: 1, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Cleaning", description: "Clean my room", dueDate: "01-01-2021", priority: "1", itemId: 2, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Washing dishes", description: "Washing dishes from previous day", dueDate: "01-01-2021", priority: "1", itemId: 3, project: obj });
@@ -193,11 +206,12 @@ createProject('Family Stuff');
     createdProjects[obj].todolist.unshift({ name: "Help Grandpa", description: "more stuff", dueDate: "01-01-2021", priority: "2", itemId: 2, project: obj });
     createdProjects[obj].todolist.unshift({ name: "Go to work", description: "finish my work", dueDate: "01-01-2021", priority: "2", itemId: 3, project: obj });
 }
-localStorage.setItem('projects', JSON.stringify(createdProjects))
 
+updateLocalstorage(); 
 
-console.log(createdProjects[0])
-console.log(createdProjects[1])
+}
+
+obj = 0;
 
 document.getElementById("projects").addEventListener("change", (event) => {
     console.log(event.target.value);
@@ -206,7 +220,7 @@ document.getElementById("projects").addEventListener("change", (event) => {
 });
 
 
-let obj = 0;
+
 
 let todoId = 0;
 
@@ -225,6 +239,7 @@ class ToDo {
 document.getElementById("submitAddProject").addEventListener("click", function() {
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["submitAddProjectNull"])();
     obj = document.getElementById('projects').options.length - 1;
+
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
 });
@@ -241,6 +256,8 @@ document.getElementById('deleteproject').addEventListener("click", function() {
         obj = 0;
 
     }
+
+    updateLocalstorage();
 
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 });
@@ -267,6 +284,8 @@ document.getElementById('undo').addEventListener("click", function() {
         }
 
     }
+
+    updateLocalstorage();
 
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 });
@@ -318,6 +337,7 @@ document.getElementById('markDone').addEventListener("click", function() {
 
         }
     }
+    updateLocalstorage();
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
 
 })
@@ -347,6 +367,7 @@ document.getElementById('delete').addEventListener('click', function() {
 
     }
 
+    updateLocalstorage();
     Object(_projectViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
     // checkboxes.forEach()
     //  for(let i = 0; i < createdProjects.length; i++){
@@ -356,6 +377,9 @@ document.getElementById('delete').addEventListener('click', function() {
     // }
 })
 
+function updateLocalstorage() {
+    localStorage.setItem('projects', JSON.stringify(createdProjects))
+}
 
 
 
@@ -421,6 +445,8 @@ document.getElementById("button3").addEventListener("click", function () {
 
 
 function render() {
+
+    console.log("test");
     var mytbl = document.getElementById("myTable");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
@@ -428,6 +454,9 @@ function render() {
     let checkboxTab;
 
     if (document.getElementById('incomplete').classList.contains("active")) {
+        console.log(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][0]);
+        console.log(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][1]);
+        console.log("projectViewer");
         activeTab = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]].todolist;
         checkboxTab = "incomplete";
     } else if (document.getElementById('complete').classList.contains("active")) {
@@ -680,13 +709,14 @@ function submitAddProjectNull() {
     
     document.getElementById('myText').value = "";
     
-    localStorage.setItem('projects', JSON.stringify(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"]))
+    // localStorage.setItem('projects', JSON.stringify(createdProjects))
     
 };
 
 document.getElementById('submitAddTodo').addEventListener('click', function () {
     document.getElementById('newTodo').style.display = 'none'
     _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][_projectController_js__WEBPACK_IMPORTED_MODULE_0__["obj"]].todolist.unshift(new _projectController_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](document.getElementById('title').value, document.getElementById('description').value, document.getElementById('date').value, selectedPriority));
+    Object(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["updateLocalstorage"])();
     render();
 })
 
