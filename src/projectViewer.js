@@ -144,7 +144,9 @@ function render() {
                 document.getElementById("editDescription").value = createdProjects[obj2].todolist[e].description;
                 document.getElementById("editPriority").value = createdProjects[obj2].todolist[e].priority;
                 document.getElementById("editDueDate").value = createdProjects[obj2].todolist[e].dueDate;
-                    }
+                        updateLocalstorage();
+
+            }
                 }
 
                 closeBtn.onclick = function () {
@@ -177,6 +179,7 @@ function render() {
                     }
                 }
 
+                updateLocalstorage();
                 render();
                 document.querySelector(".modal").style.display = "none";
 

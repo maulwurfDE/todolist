@@ -17748,7 +17748,9 @@ function render() {
                 document.getElementById("editDescription").value = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].description;
                 document.getElementById("editPriority").value = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].priority;
                 document.getElementById("editDueDate").value = _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].dueDate;
-                    }
+                        Object(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["updateLocalstorage"])();
+
+            }
                 }
 
                 closeBtn.onclick = function () {
@@ -17781,6 +17783,7 @@ function render() {
                     }
                 }
 
+                Object(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["updateLocalstorage"])();
                 render();
                 document.querySelector(".modal").style.display = "none";
 
