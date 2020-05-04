@@ -1,89 +1,108 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script
+      src="https://kit.fontawesome.com/e63dccc6aa.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <body>
+    <!--
+    Test
+    <div class="task-list">
+      <ol id="activeTasks">
+        <li class="task-item">
+          <div class="task-item-body">
+            <div class="task-item-checkbox-wrapper">
+              <button class="complete-task-btn">
+                <i class="far fa-square"></i>
+              </button>
+            </div>
 
-</head>
-
-<body>
-
-  <div id="content">
-
-    <label for="projects">Choose a project:</label>
-
-    <select id="projects">
-      <!-- <option value="0">Default</option> -->
-    </select>
-    <br /><br />
-    Create a new project: <button name="addProject" id="addproject">New Project</button>
-    <input type="text" id="myText" required />
-    <button name="submitAddProject" id="submitAddProject">Add</button>
-
-    <br />
-    <br />
-
-    <div id="links">
-      <a href="#" class= "active" id="incomplete">Incomplete</a> 
-      <a href="#" id="complete">Completed</a> 
-      <a href="#" id="allTodos">All Incomplete</a>
+            <div class="task-item-title-wrapper">
+              <span class="task-item-title-wrapper-title">Test ToDo</span>
+            </div>
+          </div>
+        </li>
+      </ol>
+      <ol class="completed-tasks"></ol>
     </div>
-    <input type="button" name="markDone" value="Complete" id="markDone">
-    <input type="button" id="undo" value="Undo">
-    <input type="button" name="delete" value="Delete" id="delete">
-    <table style="width:75%" id="myTable">
-     <th>Checkbox</th>
-      <th>ToDo</th>
-      <th>Due Date</th>
-      <!-- <th>Description</th>
-      <th>Priority</th> -->
-    </table>
 
-    <div class="modal">
-      <div class="modal-header">
-        <span class="close-btn" id="close-btn">&times;</span>
-        <!-- <h1>I am the Header</h1> -->
+    Test
+  -->
+    <div id="content">
+      <label for="projects">Choose a project:</label>
+
+      <select id="projects">
+        <!-- <option value="0">Default</option> -->
+      </select>
+      <br /><br />
+      Create a new project:
+      <button name="addProject" id="addproject">New Project</button>
+      <input type="text" id="myText" required />
+      <button name="submitAddProject" id="submitAddProject">Add</button>
+
+      <br />
+      <br />
+
+      <div id="links">
+        <a href="#" class="active" id="incomplete">Incomplete</a>
+        <a href="#" id="complete">Completed</a>
+        <a href="#" id="allTodos">All Incomplete</a>
       </div>
-      <div class="modal-content">
-        Title: <input type="text" id="editTitle"> <br>
-        Description: <input type="text" name="" id="editDescription"> <br>
-        Priority: <input type="text" name="" id="editPriority"> <br>
-        Date: <input type="text" name="" id="editDueDate"> <br>
-        <input type="button" value="Save" id="saveEdit">
+      <input type="button" name="markDone" value="Complete" id="markDone" />
+      <input type="button" id="undo" value="Undo" />
+      <input type="button" name="delete" value="Delete" id="delete" />
+
+      <div class="task-list">
+        <ol id="render"></ol>
       </div>
-      <!-- <div class="modal-footer">
-        <h2>I am the Footer</h2>
-      </div> -->
+      <!--
+      <table style="width: 75%;" id="myTable">
+        <th>Checkbox</th>
+        <th>ToDo</th>
+        <th>Due Date</th>
+      </table>
+    -->
+      <div class="modal">
+        <div class="modal-header">
+          <span class="close-btn" id="close-btn">&times;</span>
+        </div>
+        <div class="modal-content">
+          Title: <input type="text" id="editTitle" /> <br />
+          Description: <input type="text" name="" id="editDescription" /> <br />
+          Priority: <input type="text" name="" id="editPriority" /> <br />
+          Date: <input type="text" name="" id="editDueDate" /> <br />
+          <input type="button" value="Save" id="saveEdit" />
+        </div>
+      </div>
+
+      Create a new ToDo: <button name="addToDo" id="addtodo">New Task</button>
+      <br />
+
+      <div id="newTodo">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" /><br />
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" /><br />
+        <label for="date">Date: </label>
+        <input type="date" name="date" id="date" /><br />
+        <label>Priority: </label>
+        <input type="button" id="button1" value="1" />
+        <input type="button" id="button2" value="2" />
+        <input type="button" id="button3" value="3" />
+        <!-- <input type="number" name="priority" id="priority"> <br> -->
+        <button name="submitAddTodo" id="submitAddTodo">Add</button>
+      </div>
+
+      <button name="deleteProject" id="deleteproject">Delete Project</button>
     </div>
 
-    Create a new ToDo: <button name="addToDo" id="addtodo">New Task</button>
-    <br />
-
-    <div id="newTodo">
-      <label for="title">Title:</label>
-      <input type="text" name="title" id="title"><br>
-      <label for="description">Description:</label>
-      <input type="text" name="description" id="description"><br>
-      <label for="date">Date: </label>
-      <input type="date" name="date" id="date"><br>
-      <label>Priority: </label>
-      <input type="button" id="button1" value="1">
-      <input type="button" id="button2" value="2">
-      <input type="button" id="button3" value="3">
-      <!-- <input type="number" name="priority" id="priority"> <br> -->
-      <button name="submitAddTodo" id="submitAddTodo">Add</button>
-    </div>
-
-
-
-    <button name="deleteProject" id="deleteproject">Delete Project</button>
-
-
-  </div>
-
-  <script src="main.js"></script>
-
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>

@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/nearmint/todolist#readme",
   "devDependencies": {
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
