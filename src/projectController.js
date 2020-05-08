@@ -134,16 +134,22 @@ document
   .getElementById("submitAddProject")
   .addEventListener("click", function () {
     var addProject = document.getElementById("myText").value;
+    var error = document.getElementById("error");
     if (
       !(
         addProject.includes("/") ||
         addProject.includes("!") ||
-        addProject.includes("_")
+        addProject.includes("_") ||
+        addProject.trim() === ""
       )
     ) {
       submitAddProjectNull();
       obj = document.getElementById("projects").options.length - 1;
       render();
+    } else if (addProject.trim() === "") {
+      error.innerHTML = "Project name can't be empty";
+    } else {
+      error.innerHTML = `not allowed: /, !, _ `;
     }
   });
 

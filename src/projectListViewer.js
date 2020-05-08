@@ -49,12 +49,15 @@ function render() {
           <div class="task-item-title-wrapper" id=${titleId}> 
             <span class="task-item-title-wrapper-title">${activeTab[prop].name}</span> 
           </div> 
+          <div class="due-date-overview">
+            ${activeTab[prop].dueDate}
+          </div>
         </div> 
         <div id=${descriptionBoxId} class="descriptionBox">
-        <div id="editButton${countListItem}" class="edit-button">
+        <div id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" class="edit-button">
           <i class="fas fa-pen"></i>
         </div>
-        <!-- <input type="button" id="editButton${countListItem}" value="Edit"> -->
+        <!-- <input type="button" id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" value="Edit"> -->
         <a class="close" id="${descriptionBoxId}">&#10006;</a>
         <strong><label>Description:</label></strong> 
         <div class="showDescription" class="text">
@@ -99,7 +102,7 @@ function render() {
           document.getElementById(`${descriptionBoxId}`).style.display =
             "block";
         });
-      let edit = `editButton${countListItem}`;
+      let edit = `editButton/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       editButton(edit);
 
       let faSquare = document.querySelectorAll(".fa-square");

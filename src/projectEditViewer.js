@@ -3,32 +3,23 @@ import { updateLocalstorage } from "./projectController.js";
 import { render } from "./projectListViewer.js";
 
 let activeEditToDo;
+let obj2;
+let itemId;
 
 function editButton(edit) {
   document.getElementById(edit).addEventListener("click", function () {
-    console.log(this);
     activeEditToDo = this.id;
     // this.style.display = "none";
-    let obj2;
+    console.log(activeEditToDo);
     let itemId2;
-    console.log(activeEditToDo);
-    console.log(activeEditToDo);
-    console.log(activeEditToDo);
     let str = this.id;
-    let itemId = str.match(/\d+$/);
+    itemId = str.match(/![\d\D]+$/);
+    itemId = JSON.stringify(itemId);
+    itemId = itemId.substring(3);
+    itemId = itemId.substring(0, itemId.length - 2);
+    console.log(itemId);
 
-    console.log(
-      document.getElementById("render").childNodes[itemId].childNodes[2].id
-    );
-    let modal = document.querySelector(".modal");
-
-    modal.style.display = "block";
-
-    let closeBtn = document.getElementById("close-btn");
-    let str2 = document.getElementById("render").childNodes[itemId]
-      .childNodes[2].id;
-    console.log(str2);
-    let projTitle = str2.match(/\/[\d\D]+!/);
+    let projTitle = str.match(/\/[\d\D]+!/);
     projTitle = JSON.stringify(projTitle);
     projTitle = projTitle.substring(3);
     projTitle = projTitle.substring(0, projTitle.length - 3);
@@ -40,16 +31,17 @@ function editButton(edit) {
       }
     }
 
-    itemId2 = str2.match(/![\d\D]+$/);
-    itemId2 = JSON.stringify(itemId2);
-    itemId2 = itemId2.substring(3);
-    itemId2 = itemId2.substring(0, itemId2.length - 2);
-    console.log(itemId2);
+    //   console.log(
+    //    document.getElementById("render").childNodes[itemId].childNodes[2].id
+    //  );
+    let modal = document.querySelector(".modal");
 
-    // hat itemId 3 aber das heisst nicht, dass es die dritte Position im Array ist.
+    modal.style.display = "block";
+
+    let closeBtn = document.getElementById("close-btn");
 
     for (let e = 0; e < createdProjects[obj2].todolist.length; e++) {
-      if (createdProjects[obj2].todolist[e].itemId == itemId2) {
+      if (createdProjects[obj2].todolist[e].itemId == itemId) {
         document.getElementById("editTitle").value =
           createdProjects[obj2].todolist[e].name;
         document.getElementById("editDescription").value =
@@ -77,18 +69,15 @@ function editButton(edit) {
     console.log(this);
     let str = activeEditToDo;
     console.log(activeEditToDo);
-    let itemId = str.match(/\d+$/);
+    //    let itemId = str.match(/\d+$/);
 
-    let str2 = document.getElementById("render").childNodes[itemId]
-      .childNodes[2].id;
-    console.log(
-      document.getElementById("render").childNodes[itemId].childNodes[2].id
-    );
-    let obj2 = str2.match(/\B\d+/);
-    let itemId2 = str2.match(/\d+$/);
+    //    let str2 = document.getElementById("render").childNodes[itemId].childNodes[2].id;
+
+    // let obj2 = str2.match(/\B\d+/);
+    //   let itemId2 = str2.match(/\d+$/);
 
     for (let e = 0; e < createdProjects[obj2].todolist.length; e++) {
-      if (createdProjects[obj2].todolist[e].itemId == itemId2) {
+      if (createdProjects[obj2].todolist[e].itemId == itemId) {
         createdProjects[obj2].todolist[e].name = document.getElementById(
           "editTitle"
         ).value;

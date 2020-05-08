@@ -17511,16 +17511,22 @@ document
   .getElementById("submitAddProject")
   .addEventListener("click", function () {
     var addProject = document.getElementById("myText").value;
+    var error = document.getElementById("error");
     if (
       !(
         addProject.includes("/") ||
         addProject.includes("!") ||
-        addProject.includes("_")
+        addProject.includes("_") ||
+        addProject.trim() === ""
       )
     ) {
       Object(_projectListViewer_js__WEBPACK_IMPORTED_MODULE_0__["submitAddProjectNull"])();
       obj = document.getElementById("projects").options.length - 1;
       Object(_projectListViewer_js__WEBPACK_IMPORTED_MODULE_0__["render"])();
+    } else if (addProject.trim() === "") {
+      error.innerHTML = "Project name can't be empty";
+    } else {
+      error.innerHTML = `not allowed: /, !, _ `;
     }
   });
 
@@ -17719,32 +17725,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let activeEditToDo;
+let obj2;
+let itemId;
 
 function editButton(edit) {
   document.getElementById(edit).addEventListener("click", function () {
-    console.log(this);
     activeEditToDo = this.id;
     // this.style.display = "none";
-    let obj2;
+    console.log(activeEditToDo);
     let itemId2;
-    console.log(activeEditToDo);
-    console.log(activeEditToDo);
-    console.log(activeEditToDo);
     let str = this.id;
-    let itemId = str.match(/\d+$/);
+    itemId = str.match(/![\d\D]+$/);
+    itemId = JSON.stringify(itemId);
+    itemId = itemId.substring(3);
+    itemId = itemId.substring(0, itemId.length - 2);
+    console.log(itemId);
 
-    console.log(
-      document.getElementById("render").childNodes[itemId].childNodes[2].id
-    );
-    let modal = document.querySelector(".modal");
-
-    modal.style.display = "block";
-
-    let closeBtn = document.getElementById("close-btn");
-    let str2 = document.getElementById("render").childNodes[itemId]
-      .childNodes[2].id;
-    console.log(str2);
-    let projTitle = str2.match(/\/[\d\D]+!/);
+    let projTitle = str.match(/\/[\d\D]+!/);
     projTitle = JSON.stringify(projTitle);
     projTitle = projTitle.substring(3);
     projTitle = projTitle.substring(0, projTitle.length - 3);
@@ -17756,16 +17753,17 @@ function editButton(edit) {
       }
     }
 
-    itemId2 = str2.match(/![\d\D]+$/);
-    itemId2 = JSON.stringify(itemId2);
-    itemId2 = itemId2.substring(3);
-    itemId2 = itemId2.substring(0, itemId2.length - 2);
-    console.log(itemId2);
+    //   console.log(
+    //    document.getElementById("render").childNodes[itemId].childNodes[2].id
+    //  );
+    let modal = document.querySelector(".modal");
 
-    // hat itemId 3 aber das heisst nicht, dass es die dritte Position im Array ist.
+    modal.style.display = "block";
+
+    let closeBtn = document.getElementById("close-btn");
 
     for (let e = 0; e < _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist.length; e++) {
-      if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].itemId == itemId2) {
+      if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].itemId == itemId) {
         document.getElementById("editTitle").value =
           _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].name;
         document.getElementById("editDescription").value =
@@ -17793,18 +17791,15 @@ function editButton(edit) {
     console.log(this);
     let str = activeEditToDo;
     console.log(activeEditToDo);
-    let itemId = str.match(/\d+$/);
+    //    let itemId = str.match(/\d+$/);
 
-    let str2 = document.getElementById("render").childNodes[itemId]
-      .childNodes[2].id;
-    console.log(
-      document.getElementById("render").childNodes[itemId].childNodes[2].id
-    );
-    let obj2 = str2.match(/\B\d+/);
-    let itemId2 = str2.match(/\d+$/);
+    //    let str2 = document.getElementById("render").childNodes[itemId].childNodes[2].id;
+
+    // let obj2 = str2.match(/\B\d+/);
+    //   let itemId2 = str2.match(/\d+$/);
 
     for (let e = 0; e < _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist.length; e++) {
-      if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].itemId == itemId2) {
+      if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].itemId == itemId) {
         _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].name = document.getElementById(
           "editTitle"
         ).value;
@@ -17893,12 +17888,15 @@ function render() {
           <div class="task-item-title-wrapper" id=${titleId}> 
             <span class="task-item-title-wrapper-title">${activeTab[prop].name}</span> 
           </div> 
+          <div class="due-date-overview">
+            ${activeTab[prop].dueDate}
+          </div>
         </div> 
         <div id=${descriptionBoxId} class="descriptionBox">
-        <div id="editButton${countListItem}" class="edit-button">
+        <div id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" class="edit-button">
           <i class="fas fa-pen"></i>
         </div>
-        <!-- <input type="button" id="editButton${countListItem}" value="Edit"> -->
+        <!-- <input type="button" id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" value="Edit"> -->
         <a class="close" id="${descriptionBoxId}">&#10006;</a>
         <strong><label>Description:</label></strong> 
         <div class="showDescription" class="text">
@@ -17943,7 +17941,7 @@ function render() {
           document.getElementById(`${descriptionBoxId}`).style.display =
             "block";
         });
-      let edit = `editButton${countListItem}`;
+      let edit = `editButton/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       Object(_projectEditViewer_js__WEBPACK_IMPORTED_MODULE_2__["editButton"])(edit);
 
       let faSquare = document.querySelectorAll(".fa-square");
