@@ -38,8 +38,6 @@ function render() {
       let titleId = `title/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       let taskId = "task" + countListItem;
       let newListItem = document.createElement("li");
-      console.log(checkboxId);
-      console.log(activeTab[prop].project);
       newListItem.innerHTML = `<div class="task-item-body" id='${taskId}'> 
           <div class="task-item-checkbox-wrapper"> 
             <button class="complete-task-btn"> 
@@ -70,7 +68,6 @@ function render() {
 
     `;
       newListItem.className = "task-items";
-      console.log(activeTab[prop].priority);
 
       document.getElementById("render").appendChild(newListItem);
 
@@ -120,8 +117,6 @@ function render() {
     element.addEventListener("click", function () {
       document.getElementById(`${this.id}`).style.display = "none";
     });
-
-    // console.log("hi");
   });
   displayOptions();
 }
@@ -145,7 +140,6 @@ function render() {
 function removeProjectDropdown() {
   var selectobject = document.getElementById("projects");
   for (var i = 0; i < selectobject.length; i++) {
-    // console.log(createdProjects[obj].id);
     if (selectobject.options[i].value == createdProjects[obj].title)
       selectobject.remove(i);
   }
@@ -155,8 +149,9 @@ let selectedPriority = 0;
 
 document.getElementById("button1").addEventListener("click", function () {
   if (
-    document.getElementById("button1").style.border ===
-    "5px solid rgba(0,255,0,.7)"
+    document.getElementById("button1").classList.contains("clicked")
+    //document.getElementById("button1").style.border ===
+    //"5px solid rgba(0, 255, 0, 0.7)"
   ) {
     selectedPriority = 0;
     document.getElementById("button1").style.border = "5px solid white";
@@ -164,10 +159,10 @@ document.getElementById("button1").addEventListener("click", function () {
     document.getElementById("button2").style.border = "5px solid white";
     document.getElementById("button3").style.border = "5px solid white";
     document.getElementById("button1").style.border =
-      "5px solid rgba(0,255,0,.7)";
+      "5px solid rgba(0,255,0,0.7)";
     selectedPriority = 1;
   }
-  // document.getElementById("button1").style.borderWidth = '5px';
+  document.getElementById("button1").classList.toggle("clicked");
 });
 
 document.getElementById("button2").addEventListener("click", function () {
@@ -180,13 +175,13 @@ document.getElementById("button2").addEventListener("click", function () {
     document.getElementById("button2").style.border = "5px solid yellow";
     selectedPriority = 2;
   }
-  // document.getElementById("button2").style.borderWidth = '5px';
 });
 
 document.getElementById("button3").addEventListener("click", function () {
   if (
-    document.getElementById("button3").style.border ===
-    "5px solid rgba(255,0,0,.7)"
+    document.getElementById("button3").classList.contains("clicked")
+    //document.getElementById("button3").style.border ===
+    //"5px solid rgba(255,0,0,0.7)"
   ) {
     selectedPriority = 0;
     document.getElementById("button3").style.border = "5px solid white";
@@ -194,10 +189,10 @@ document.getElementById("button3").addEventListener("click", function () {
     document.getElementById("button1").style.border = "5px solid white";
     document.getElementById("button2").style.border = "5px solid white";
     document.getElementById("button3").style.border =
-      "5px solid rgba(255,0,0,.7)";
+      "5px solid rgba(255,0,0,0.7)";
     selectedPriority = 3;
   }
-  // document.getElementById("button3").style.borderWidth = '5px';
+  document.getElementById("button3").classList.toggle("clicked");
 });
 
 document.getElementById("addtodo").addEventListener("click", function () {
@@ -229,7 +224,6 @@ createdProjects.forEach((proj) => {
 });
 
 function submitAddProjectNull() {
-  // console.log(document.getElementById("myText").value);
   createProject(document.getElementById("myText").value);
 
   let opt = document.createElement("option");
@@ -263,7 +257,6 @@ function displayOptions() {
     let thisCheckbox = checkboxes[i];
     thisCheckbox.addEventListener("click", function (e) {
       if (e.target.classList.contains("fa-check-square")) {
-        console.log(this);
         if (this.classList.contains("incomplete")) {
           checkedCount++;
           document.getElementById("delete").style.display = "inline";
@@ -284,7 +277,6 @@ function displayOptions() {
           document.getElementById("markDone").style.display = "none";
           document.getElementById("undo").style.display = "none";
         }
-        // console.log("it's unchecked");
       }
     });
   }

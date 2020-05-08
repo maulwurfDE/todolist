@@ -26,6 +26,9 @@
   transition: all 1s ease-in;
 }
 
+.clicked {
+}
+
 .open {
   display: none;
 }
