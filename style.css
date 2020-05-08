@@ -26,6 +26,9 @@
   transition: all 1s ease-in;
 }
 
+.open {
+  display: none;
+}
 .descriptionBox label,
 .showDescription {
   display: block;
@@ -57,6 +60,7 @@ html {
 }
 
 .task-item-body {
+  display: flex;
   background: #fff;
   list-style: none;
   height: 46px;
@@ -105,10 +109,22 @@ html {
   display: none;
 }
 
+.due-date-overview {
+  margin-left: auto;
+  padding-right: 50px;
+  font-size: 12px;
+  color: #328ad6;
+}
+
 .active {
   font-weight: bold;
   color: black;
   text-decoration: none;
+}
+
+#error {
+  color: red;
+  font-size: 12px;
 }
 
 #button1,
