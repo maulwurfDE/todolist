@@ -45,8 +45,35 @@
         <div class="modal-content">
           Title: <input type="text" id="editTitle" /> <br />
           Description: <input type="text" name="" id="editDescription" /> <br />
-          Priority: <input type="text" name="" id="editPriority" /> <br />
-          Date: <input type="text" name="" id="editDueDate" /> <br />
+          <label>Priority: </label>
+          <div id="buttonsModal">
+            <input
+              type="button"
+              id="button0Modal"
+              class="white blanko"
+              value="0"
+            />
+            <input
+              type="button"
+              id="button1Modal"
+              class="green blanko"
+              value="1"
+            />
+            <input
+              type="button"
+              id="button2Modal"
+              class="yellow blanko"
+              value="2"
+            />
+            <input
+              type="button"
+              id="button3Modal"
+              class="red blanko"
+              value="3"
+            />
+          </div>
+          <br />
+          Date: <input type="date" name="" id="editDueDate" /> <br />
           <input type="button" value="Save" id="saveEdit" />
         </div>
       </div>
@@ -62,9 +89,12 @@
         <label for="date">Date: </label>
         <input type="date" name="date" id="date" /><br />
         <label>Priority: </label>
-        <input type="button" id="button1" value="1" />
-        <input type="button" id="button2" value="2" />
-        <input type="button" id="button3" value="3" />
+        <div id="buttonSelector">
+          <input type="button" id="button0" value="0" class="white blanko" />
+          <input type="button" id="button1" value="1" class="green blanko" />
+          <input type="button" id="button2" value="2" class="yellow blanko" />
+          <input type="button" id="button3" value="3" class="red blanko" />
+        </div>
         <button name="submitAddTodo" id="submitAddTodo">Add</button>
       </div>
 
