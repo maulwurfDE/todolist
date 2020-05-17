@@ -40,7 +40,7 @@ if (createdProjects.length === 0) {
       name: "Homework",
       description: "English homework",
       dueDate: "01-01-2021",
-      priority: "2",
+      priority: 2,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });
@@ -48,7 +48,7 @@ if (createdProjects.length === 0) {
       name: "Cleaning",
       description: "Clean my room",
       dueDate: "01-01-2021",
-      priority: "1",
+      priority: 1,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });
@@ -56,7 +56,7 @@ if (createdProjects.length === 0) {
       name: "Washing dishes",
       description: "Washing dishes from previous day",
       dueDate: "01-01-2021",
-      priority: "1",
+      priority: 1,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });
@@ -66,7 +66,7 @@ if (createdProjects.length === 0) {
       name: "Help Mum",
       description: "some stuff",
       dueDate: "01-01-2021",
-      priority: "3",
+      priority: 3,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });
@@ -74,7 +74,7 @@ if (createdProjects.length === 0) {
       name: "Help Grandpa",
       description: "more stuff",
       dueDate: "01-01-2021",
-      priority: "2",
+      priority: 2,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });
@@ -82,7 +82,7 @@ if (createdProjects.length === 0) {
       name: "Go to work",
       description: "finish my work",
       dueDate: "01-01-2021",
-      priority: "2",
+      priority: 2,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),
     });

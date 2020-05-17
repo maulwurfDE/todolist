@@ -11,10 +11,7 @@ import { editButton } from "./projectEditViewer.js";
 
 function render() {
   document.getElementById("render").innerHTML = "";
-  // createDefaultProjectDropdown();
-
   let countListItem = 0;
-
   let activeTab;
   let checkboxTab;
 
@@ -147,60 +144,90 @@ function removeProjectDropdown() {
 
 let selectedPriority = 0;
 
-document.getElementById("button1").addEventListener("click", function () {
-  if (
-    document.getElementById("button1").classList.contains("clicked")
-    //document.getElementById("button1").style.border ===
-    //"5px solid rgba(0, 255, 0, 0.7)"
-  ) {
-    selectedPriority = 0;
-    document.getElementById("button1").style.border = "5px solid white";
-  } else {
-    document.getElementById("button2").style.border = "5px solid white";
-    document.getElementById("button3").style.border = "5px solid white";
-    document.getElementById("button1").style.border =
-      "5px solid rgba(0,255,0,0.7)";
-    selectedPriority = 1;
-  }
-  document.getElementById("button1").classList.toggle("clicked");
-});
+document
+  .getElementById("buttonSelector")
+  .addEventListener("click", function (event) {
+    document.getElementById("button0").classList.add("blanko");
+    document.getElementById("button1").classList.add("blanko");
+    document.getElementById("button2").classList.add("blanko");
+    document.getElementById("button3").classList.add("blanko");
+    event.target.classList.remove("blanko");
+    console.log(event.target);
 
-document.getElementById("button2").addEventListener("click", function () {
-  if (document.getElementById("button2").style.border === "5px solid yellow") {
-    selectedPriority = 0;
-    document.getElementById("button2").style.border = "5px solid white";
-  } else {
-    document.getElementById("button1").style.border = "5px solid white";
-    document.getElementById("button3").style.border = "5px solid white";
-    document.getElementById("button2").style.border = "5px solid yellow";
-    selectedPriority = 2;
-  }
-});
+    if (event.target.id === "button2") {
+      selectedPriority = 2;
+    } else if (event.target.id === "button3") {
+      selectedPriority = 3;
+    } else if (event.target.id === "button1") {
+      selectedPriority = 1;
+    } else {
+      selectedPriority = 0;
+      document.getElementById("button0").classList.remove("blanko");
+    }
+  });
 
-document.getElementById("button3").addEventListener("click", function () {
-  if (
-    document.getElementById("button3").classList.contains("clicked")
-    //document.getElementById("button3").style.border ===
-    //"5px solid rgba(255,0,0,0.7)"
-  ) {
-    selectedPriority = 0;
-    document.getElementById("button3").style.border = "5px solid white";
-  } else {
-    document.getElementById("button1").style.border = "5px solid white";
-    document.getElementById("button2").style.border = "5px solid white";
-    document.getElementById("button3").style.border =
-      "5px solid rgba(255,0,0,0.7)";
-    selectedPriority = 3;
-  }
-  document.getElementById("button3").classList.toggle("clicked");
-});
+// document.getElementById("button1").addEventListener("click", function () {
+//   if (
+//     document.getElementById("button1").classList.contains("clicked")
+//     //document.getElementById("button1").style.backgroundColor===x solid rgba(0, 255, 0, 0.7)"
+//   ) {
+//     selectedPriority = 0;
+//     document.getElementById("button1").style.backgroundColor = "white";
+//   } else {
+//     document.getElementById("button2").style.backgroundColor = "white";
+//     document.getElementById("button3").style.backgroundColor = "white";
+//     document.getElementById("button1").style.backgroundColor =
+//       "rgba(0,255,0,0.7)";
+//     selectedPriority = 1;
+//   }
+//   document.getElementById("button1").classList.toggle("clicked");
+// });
+
+// document.getElementById("button2").addEventListener("click", function () {
+//   if (
+//     document.getElementById("button2").style.backgroundColor ===
+//     "5px solid yellow"
+//   ) {
+//     selectedPriority = 0;
+//     document.getElementById("button2").style.backgroundColor = "white";
+//   } else {
+//     document.getElementById("button1").style.backgroundColor = "white";
+//     document.getElementById("button3").style.backgroundColor = "white";
+//     document.getElementById("button2").style.backgroundColor = "yellow";
+//     selectedPriority = 2;
+//   }
+// });
+
+// document.getElementById("button3").addEventListener("click", function () {
+//   if (
+//     document.getElementById("button3").classList.contains("clicked")
+//     //document.getElementById("button3").style.backgroundColor===x solid rgba(255,0,0,0.7)"
+//   ) {
+//     selectedPriority = 0;
+//     document.getElementById("button3").style.backgroundColor = "white";
+//   } else {
+//     document.getElementById("button1").style.backgroundColor = "white";
+//     document.getElementById("button2").style.backgroundColor = "white";
+//     document.getElementById("button3").style.backgroundColor =
+//       "rgba(255,0,0,0.7)";
+//     selectedPriority = 3;
+//   }
+//   document.getElementById("button3").classList.toggle("clicked");
+// });
 
 document.getElementById("addtodo").addEventListener("click", function () {
   document.getElementById("newTodo").style.display = "block";
+  document.getElementById("button0").classList.remove("blanko");
+  selectedPriority = 0;
 });
 
 document.getElementById("submitAddTodo").addEventListener("click", function () {
   document.getElementById("newTodo").style.display = "none";
+  document.getElementById("button0").classList.add("blanko");
+  document.getElementById("button1").classList.add("blanko");
+  document.getElementById("button2").classList.add("blanko");
+  document.getElementById("button3").classList.add("blanko");
+
   createdProjects[obj].todolist.unshift(
     new ToDo(
       document.getElementById("title").value,
