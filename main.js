@@ -875,6 +875,8 @@ document.getElementById("addtodo").addEventListener("click", function () {
 
 document.getElementById("submitAddTodo").addEventListener("click", function () {
   document.getElementById("newTodo").style.display = "none";
+  document.getElementById("addtodo").style.display = "inline";
+  document.getElementById("cancelAddToDo").style.display = "none";
   document.getElementById("button0").classList.add("blanko");
   document.getElementById("button1").classList.add("blanko");
   document.getElementById("button2").classList.add("blanko");
@@ -889,6 +891,7 @@ document.getElementById("submitAddTodo").addEventListener("click", function () {
     )
   );
   Object(_projectController_js__WEBPACK_IMPORTED_MODULE_0__["updateLocalstorage"])();
+
   render();
 });
 
