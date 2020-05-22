@@ -13,17 +13,21 @@
 
   <body>
     <div id="content">
+      <header>
+        <i class="fas fa-clipboard-list fa-3x"></i>
+        <h1>MyTodolist</h1>
+      </header>
       <label for="projects">Choose a project:</label>
 
       <select id="projects"> </select>
       <br />
       <br />
-      Create a new project:
+
       <button name="addProject" id="addproject">New Project</button>
       <input type="text" id="myText" required />
       <button name="submitAddProject" id="submitAddProject">Add</button>
+      <button id="cancelAddProject">Cancel</button>
       <div id="error"></div>
-      <br />
       <br />
 
       <div id="links">
@@ -31,20 +35,25 @@
         <a href="#" id="complete">Completed</a>
         <a href="#" id="allTodos">All Incomplete</a>
       </div>
-      <input type="button" name="markDone" value="Complete" id="markDone" />
-      <input type="button" id="undo" value="Undo" />
-      <input type="button" name="delete" value="Delete" id="delete" />
+
+      <div class="status">
+        <input type="button" name="markDone" value="Complete" id="markDone" />
+        <input type="button" id="undo" value="Undo" />
+        <input type="button" name="delete" value="Delete" id="delete" />
+      </div>
 
       <div class="task-list">
         <ol id="render"></ol>
       </div>
       <div class="modal">
-        <div class="modal-header">
-          <span class="close-btn" id="close-btn">&times;</span>
-        </div>
+        <div class="modal-header"></div>
+
         <div class="modal-content">
-          Title: <input type="text" id="editTitle" /> <br />
-          Description: <input type="text" name="" id="editDescription" /> <br />
+          <div class="close-btn" id="close-btn">&times;</div>
+          <label for="editTitle">Title:</label>
+          <input type="text" id="editTitle" /><br />
+          <label>Description:</label>
+          <input type="text" name="" id="editDescription" /> <br />
           <label>Priority: </label>
           <div id="buttonsModal">
             <input
@@ -73,30 +82,36 @@
             />
           </div>
           <br />
-          Date: <input type="date" name="" id="editDueDate" /> <br />
+          Date: <input type="date" name="" id="editDueDate" /> <br /><br />
           <input type="button" value="Save" id="saveEdit" />
         </div>
       </div>
 
-      Create a new ToDo: <button name="addToDo" id="addtodo">New Task</button>
+      <br />Create a new ToDo:
+      <button name="addToDo" id="addtodo">New Task</button>
+      <button name="cancelAddToDo" id="cancelAddToDo">Cancel</button>
       <br />
 
-      <div id="newTodo">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" /><br />
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="description" /><br />
-        <label for="date">Date: </label>
-        <input type="date" name="date" id="date" /><br />
-        <label>Priority: </label>
-        <div id="buttonSelector">
-          <input type="button" id="button0" value="0" class="white blanko" />
-          <input type="button" id="button1" value="1" class="green blanko" />
-          <input type="button" id="button2" value="2" class="yellow blanko" />
-          <input type="button" id="button3" value="3" class="red blanko" />
+      <form>
+        <div id="newTodo">
+          <label for="title">Title:</label>
+          <input type="text" name="title" id="title" required />
+          <label for="description">Description:</label>
+          <input type="text" name="description" id="description" required />
+          <label for="date">Date: </label>
+          <input type="date" name="date" id="date" />
+          <label>Priority: </label>
+          <div id="buttonSelector">
+            <input type="button" id="button0" value="0" class="white blanko" />
+            <input type="button" id="button1" value="1" class="green blanko" />
+            <input type="button" id="button2" value="2" class="yellow blanko" />
+            <input type="button" id="button3" value="3" class="red blanko" />
+          </div>
+          <button type="submit" name="submitAddTodo" id="submitAddTodo">
+            Add
+          </button>
         </div>
-        <button name="submitAddTodo" id="submitAddTodo">Add</button>
-      </div>
+      </form>
 
       <button name="deleteProject" id="deleteproject">Delete Project</button>
     </div>
