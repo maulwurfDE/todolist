@@ -2,14 +2,28 @@
   padding: 0;
   margin: 0;
   text-decoration: none;
-  text-rendering: optimizeLegibility;
   outline: none;
+  box-sizing: border-box;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+body {
+  background-color: #ffd8a6;
+  padding: 10px;
+  font-size: 18px;
 }
 
 .close {
   color: red;
   text-align: right;
   font-size: 20px;
+
+  float: right;
 }
 
 .close:hover {
@@ -17,12 +31,16 @@
   color: darkred;
 }
 
+.displayNone {
+  display: none;
+}
 .descriptionBox {
   border: 1px black solid;
-  width: 750px;
+  width: 98%;
   margin: 0 auto;
-  padding: 5px 10px 5px 20px;
+  padding: 6px;
   text-align: right;
+  font-size: 15px;
   transition: all 1s ease-in;
 }
 
@@ -32,22 +50,6 @@
 #button0Modal {
   cursor: pointer;
 }
-
-/* #button1Modal:focus {
-  border: 5px solid rgba(0, 255, 0, 0.7);
-}
-
-#button2Modal:focus {
-  border: 5px solid yellow;
-}
-
-#button3Modal:focus {
-  border: 5px solid rgba(255, 0, 0, 0.7);
-}
-
-#button0Modal:focus {
-  border: 5px solid transparent;
-} */
 
 .green {
   border: 5px solid rgba(0, 255, 0, 0.7);
@@ -80,17 +82,13 @@
   text-align: left;
 }
 
-html {
-  font-family: "Roboto", sans-serif;
-}
-
 .task-item {
   list-style: none;
   margin-bottom: 6px;
 }
 .task-item-title-wrapper-title {
   white-space: nowrap;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: #262626;
   cursor: default;
@@ -118,8 +116,18 @@ html {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.show {
+  display: block;
+}
+
+#content {
+  width: 50%;
+  margin: 0 auto;
+}
+
 .task-item-body:hover {
   background: rgba(255, 255, 255, 0.89);
+  cursor: pointer;
 }
 
 .complete-task-btn,
@@ -150,8 +158,104 @@ html {
 #markDone,
 #delete,
 #undo,
-#newTodo {
+#newTodo,
+#cancelAddToDo,
+#cancelAddProject {
   display: none;
+}
+
+#submitAddTodo {
+  margin-top: 10px;
+}
+
+#newTodo {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+ol {
+  list-style: none;
+}
+
+button,
+#saveEdit,
+#markDone,
+#delete,
+#undo {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #5995da;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.complete-task-btn:hover {
+  background-color: white;
+}
+button:hover,
+#saveEdit:hover,
+#markDone:hover,
+#delete:hover,
+#undo:hover {
+  background-color: #76aeed;
+}
+
+.status {
+  margin: 10px;
+}
+
+select {
+  width: 150px;
+  padding: 10px;
+  font-size: 14px;
+  -webkit-appearance: none;
+  outline: none;
+  font-size: 20px;
+  border: 1px solid white;
+  background: white;
+  border-radius: 4px;
+}
+
+#links {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #5995da;
+}
+
+#links > * {
+  padding: 10px;
+  color: white;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+#myText {
+  padding: 10px;
+  width: 200px;
+}
+
+input[type="text"],
+input[type="date"] {
+  background-color: #ffffff;
+  border: 1px solid #d6d9dc;
+  border-radius: 3px;
+  width: 50%;
+  padding: 7px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 900;
 }
 
 .due-date-overview {
@@ -163,21 +267,14 @@ html {
 
 .active {
   font-weight: bold;
-  color: black;
+  color: rgb(212, 204, 204);
   text-decoration: none;
+  background-color: #1f78dd;
 }
 
 #error {
   color: red;
   font-size: 12px;
-}
-
-#button1,
-#button2,
-#button3 {
-  /* border: 5px solid white;
-  outline: none; */
-  cursor: pointer;
 }
 
 .modal {
@@ -197,63 +294,65 @@ html {
   background-color: white;
   padding: 20px;
   margin: auto;
-  width: 75%;
+  width: 50%;
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
 
+@media screen and (max-width: 786px) {
+  .modal-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  input[type="text"],
+  .modal-content,
+  #content {
+    width: 100%;
+  }
+}
+
+.task-items {
+  background-color: white;
+}
+
 .close-btn {
   float: right;
+  top: 0;
+  position: absolute;
+  left: 96%;
   color: lightgray;
-  font-size: 24px;
+  font-size: 25px;
   font-weight: bold;
+}
+
+.close-btn:hover {
+  color: black;
   cursor: pointer;
 }
 
 .edit-button .fa-pen {
   cursor: pointer;
+  width: 20px;
+  float: right;
+  padding-top: 3px;
+  padding-right: 3px;
   color: red;
 }
 
-.close-btn:hover {
-  color: darkgray;
+.edit-button:hover,
+.fa-pen:hover {
+  color: darkred;
 }
 
-table {
-  border-collapse: collapse;
+.detail-buttons {
+  width: 60px;
+  overflow: hidden;
+  float: right;
 }
 
-td,
-th {
-  border-bottom: 5px solid #fff;
-  padding: 10px;
-  text-align: left;
-}
-
-td {
-  height: 50px;
-}
-
-@-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
+#editTitle,
+#editDescription {
+  width: 100%;
 }

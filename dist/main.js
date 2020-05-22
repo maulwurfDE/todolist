@@ -674,11 +674,14 @@ function render() {
           </div>
         </div> 
         <div id=${descriptionBoxId} class="descriptionBox">
+        <div class="detail-buttons">
+        <div class="close" id="${descriptionBoxId}">&#10006;</div>
         <div id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" class="edit-button">
           <i class="fas fa-pen"></i>
+        </div> 
         </div>
         <!-- <input type="button" id="editButton/${activeTab[prop].project}!${activeTab[prop].itemId}" value="Edit"> -->
-        <a class="close" id="${descriptionBoxId}">&#10006;</a>
+       
         <strong><label>Description:</label></strong> 
         <div class="showDescription" class="text">
         ${activeTab[prop].description}
@@ -686,7 +689,7 @@ function render() {
         <strong><label>Priority:</label></strong> ${activeTab[prop].priority}<br/><br/>
        <strong><label>Due Date:</label></strong> ${activeTab[prop].dueDate}
        </div>
-       <br/><br/>
+       <br/>
 
     `;
       newListItem.className = "task-items";
@@ -714,12 +717,20 @@ function render() {
             }
           }
 
-          let description = document.getElementsByClassName("descriptionBox");
-          Array.from(description).forEach((el) => {
-            el.style.display = "none";
-          });
-          document.getElementById(`${descriptionBoxId}`).style.display =
-            "block";
+          if (
+            document.getElementById(`${descriptionBoxId}`).style.display ===
+            "block"
+          ) {
+            document.getElementById(`${descriptionBoxId}`).style.display =
+              "none";
+          } else {
+            let description = document.getElementsByClassName("descriptionBox");
+            Array.from(description).forEach((el) => {
+              el.style.display = "none";
+            });
+            document.getElementById(`${descriptionBoxId}`).style.display =
+              "block";
+          }
         });
       let edit = `editButton/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       Object(_projectEditViewer_js__WEBPACK_IMPORTED_MODULE_2__["editButton"])(edit);
@@ -748,10 +759,18 @@ function render() {
   var allTodos = document.getElementById("allTodos");
   var incomplete = document.getElementById("incomplete");
   document.getElementById("links").addEventListener("click", function (e) {
-    complete.classList.remove("active");
-    allTodos.classList.remove("active");
-    incomplete.classList.remove("active");
-    e.target.classList.add("active");
+    if (
+      e.target === complete ||
+      e.target === allTodos ||
+      e.target === incomplete
+    ) {
+      complete.classList.remove("active");
+      allTodos.classList.remove("active");
+      incomplete.classList.remove("active");
+
+      e.target.classList.add("active");
+    }
+
     document.getElementById("delete").style.display = "none";
     document.getElementById("markDone").style.display = "none";
     document.getElementById("undo").style.display = "none";
@@ -840,9 +859,17 @@ document
 //   document.getElementById("button3").classList.toggle("clicked");
 // });
 
+document.getElementById("cancelAddToDo").addEventListener("click", function () {
+  document.getElementById("newTodo").style.display = "none";
+  document.getElementById("addtodo").style.display = "inline";
+  document.getElementById("cancelAddToDo").style.display = "none";
+});
+
 document.getElementById("addtodo").addEventListener("click", function () {
-  document.getElementById("newTodo").style.display = "block";
+  document.getElementById("newTodo").style.display = "flex";
   document.getElementById("button0").classList.remove("blanko");
+  document.getElementById("addtodo").style.display = "none";
+  document.getElementById("cancelAddToDo").style.display = "inline";
   selectedPriority = 0;
 });
 
@@ -887,6 +914,7 @@ function submitAddProjectNull() {
   document.getElementById("addproject").style.display = "inline";
   document.getElementById("myText").style.display = "none";
   document.getElementById("submitAddProject").style.display = "none";
+  document.getElementById("cancelAddProject").style.display = "none";
 
   document.getElementById("projects").options[
     document.getElementById("projects").options.length - 1
@@ -898,9 +926,21 @@ function submitAddProjectNull() {
 document.getElementById("addproject").addEventListener("click", function () {
   document.getElementById("addproject").style.display = "none";
   document.getElementById("myText").style.display = "inline";
+  document.getElementById("cancelAddProject").style.display = "inline";
   document.getElementById("myText").focus();
   document.getElementById("submitAddProject").style.display = "inline";
 });
+document
+  .getElementById("cancelAddProject")
+  .addEventListener("click", function () {
+    document.getElementById("myText").style.display = "none";
+    document.getElementById("cancelAddProject").style.display = "none";
+    document.getElementById("addproject").style.display = "inline";
+    document.getElementById("myText").style.display = "none";
+    document.getElementById("submitAddProject").style.display = "none";
+
+    console.log("clicked");
+  });
 
 function displayOptions() {
   let checkboxes = document.querySelectorAll(".far");
