@@ -35,6 +35,17 @@ function render() {
       let titleId = `title/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       let taskId = "task" + countListItem;
       let newListItem = document.createElement("li");
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      let dueDateParsed = new Date(activeTab[prop].dueDate).toLocaleDateString("en-GB", options);
+      dueDateParsed = dueDateParsed.toString();
+      
+      console.log(typeof dueDateParsed);
+//       console.log(activeTab[prop].dueDate);
+//       const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' }) 
+// const [{ value: month },,{ value: day },,{ value: year }] = dateTimeFormat.formatToParts(dueDateParsed) 
+
+
+
       newListItem.innerHTML = `<div class="task-item-body" id='${taskId}'> 
           <div class="task-item-checkbox-wrapper"> 
             <button class="complete-task-btn"> 
@@ -45,7 +56,7 @@ function render() {
             <span class="task-item-title-wrapper-title">${activeTab[prop].name}</span> 
           </div> 
           <div class="due-date-overview">
-            ${activeTab[prop].dueDate}
+          ${dueDateParsed}
           </div>
         </div> 
         <div id=${descriptionBoxId} class="descriptionBox">
@@ -62,7 +73,7 @@ function render() {
         ${activeTab[prop].description}
         <br/><br/>
         <strong><label>Priority:</label></strong> ${activeTab[prop].priority}<br/><br/>
-       <strong><label>Due Date:</label></strong> ${activeTab[prop].dueDate}
+       <strong><label>Due Date:</label></strong> ${dueDateParsed}
        </div>
        <br/>
 

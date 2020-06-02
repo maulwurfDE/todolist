@@ -39,7 +39,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Homework",
       description: "English homework",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -47,7 +47,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Cleaning",
       description: "Clean my room",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 1,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -55,7 +55,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Washing dishes",
       description: "Washing dishes from previous day",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 1,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -65,7 +65,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Help Mum",
       description: "some stuff",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 3,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -73,7 +73,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Help Grandpa",
       description: "more stuff",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -81,7 +81,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Go to work",
       description: "finish my work",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),

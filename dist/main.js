@@ -216,7 +216,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Homework",
       description: "English homework",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -224,7 +224,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Cleaning",
       description: "Clean my room",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 1,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -232,7 +232,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Washing dishes",
       description: "Washing dishes from previous day",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 1,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -242,7 +242,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Help Mum",
       description: "some stuff",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 3,
       itemId: 1,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -250,7 +250,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Help Grandpa",
       description: "more stuff",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 2,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -258,7 +258,7 @@ if (createdProjects.length === 0) {
     createdProjects[obj].todolist.unshift({
       name: "Go to work",
       description: "finish my work",
-      dueDate: "01-01-2021",
+      dueDate: "2021-01-01",
       priority: 2,
       itemId: 3,
       project: createdProjects[obj].title.replace(/ /g, "_"),
@@ -504,6 +504,10 @@ function editButton(edit) {
         document.getElementById("editDescription").value =
           _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].description;
         console.log(typeof _projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].priority);
+        document.getElementById("button1Modal").classList.add("blanko");
+        document.getElementById("button0Modal").classList.add("blanko");
+        document.getElementById("button2Modal").classList.add("blanko");
+        document.getElementById("button3Modal").classList.add("blanko");
         if (_projectController_js__WEBPACK_IMPORTED_MODULE_0__["createdProjects"][obj2].todolist[e].priority === 1) {
           newPriority = 1;
           document.getElementById("button1Modal").classList.remove("blanko");
@@ -552,12 +556,16 @@ function editButton(edit) {
       } else if (event.target.id === "button3Modal") {
         newPriority = 3;
       } else if (event.target.id === "saveEdit") {
-      } else if (event.target.classList.contains("fa-pen")) {
-      } else if (event.target.id === "editDueDate") {
-      } else {
+      } else if (event.target.id === "button0Modal") {
         newPriority = 0;
-        document.getElementById("button0Modal").classList.remove("blanko");
       }
+      
+      // else if (event.target.classList.contains("fa-pen")) {
+      // } else if (event.target.id === "editDueDate") {
+      // } else {
+      //   // newPriority = 0;
+      //   // document.getElementById("button0Modal").classList.remove("blanko");
+      // }
     });
     // document
     //   .getElementById("button1Modal")
@@ -660,6 +668,17 @@ function render() {
       let titleId = `title/${activeTab[prop].project}!${activeTab[prop].itemId}`;
       let taskId = "task" + countListItem;
       let newListItem = document.createElement("li");
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      let dueDateParsed = new Date(activeTab[prop].dueDate).toLocaleDateString("en-GB", options);
+      dueDateParsed = dueDateParsed.toString();
+      
+      console.log(typeof dueDateParsed);
+//       console.log(activeTab[prop].dueDate);
+//       const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' }) 
+// const [{ value: month },,{ value: day },,{ value: year }] = dateTimeFormat.formatToParts(dueDateParsed) 
+
+
+
       newListItem.innerHTML = `<div class="task-item-body" id='${taskId}'> 
           <div class="task-item-checkbox-wrapper"> 
             <button class="complete-task-btn"> 
@@ -670,7 +689,7 @@ function render() {
             <span class="task-item-title-wrapper-title">${activeTab[prop].name}</span> 
           </div> 
           <div class="due-date-overview">
-            ${activeTab[prop].dueDate}
+          ${dueDateParsed}
           </div>
         </div> 
         <div id=${descriptionBoxId} class="descriptionBox">
@@ -687,7 +706,7 @@ function render() {
         ${activeTab[prop].description}
         <br/><br/>
         <strong><label>Priority:</label></strong> ${activeTab[prop].priority}<br/><br/>
-       <strong><label>Due Date:</label></strong> ${activeTab[prop].dueDate}
+       <strong><label>Due Date:</label></strong> ${dueDateParsed}
        </div>
        <br/>
 

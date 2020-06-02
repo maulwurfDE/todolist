@@ -38,6 +38,10 @@ function editButton(edit) {
         document.getElementById("editDescription").value =
           createdProjects[obj2].todolist[e].description;
         console.log(typeof createdProjects[obj2].todolist[e].priority);
+        document.getElementById("button1Modal").classList.add("blanko");
+        document.getElementById("button0Modal").classList.add("blanko");
+        document.getElementById("button2Modal").classList.add("blanko");
+        document.getElementById("button3Modal").classList.add("blanko");
         if (createdProjects[obj2].todolist[e].priority === 1) {
           newPriority = 1;
           document.getElementById("button1Modal").classList.remove("blanko");
@@ -86,12 +90,16 @@ function editButton(edit) {
       } else if (event.target.id === "button3Modal") {
         newPriority = 3;
       } else if (event.target.id === "saveEdit") {
-      } else if (event.target.classList.contains("fa-pen")) {
-      } else if (event.target.id === "editDueDate") {
-      } else {
+      } else if (event.target.id === "button0Modal") {
         newPriority = 0;
-        document.getElementById("button0Modal").classList.remove("blanko");
       }
+      
+      // else if (event.target.classList.contains("fa-pen")) {
+      // } else if (event.target.id === "editDueDate") {
+      // } else {
+      //   // newPriority = 0;
+      //   // document.getElementById("button0Modal").classList.remove("blanko");
+      // }
     });
     // document
     //   .getElementById("button1Modal")

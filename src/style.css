@@ -361,3 +361,7 @@ label {
 #editDescription {
   width: 100%;
 }
+
+#buttonsModal {
+  display: inline-block;
+}
