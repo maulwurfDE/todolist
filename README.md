@@ -12,3 +12,4 @@ A pair programming project with [dhatGuy](https://github.com/dhatGuy).
 * JavaScript (ES6)
 * Webpack
 * NPM (Node Package Manager)
+* Using Local Storage
