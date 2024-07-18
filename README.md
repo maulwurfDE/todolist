@@ -5,7 +5,7 @@ A pair programming project with [dhatGuy](https://github.com/dhatGuy).
 
 ## Demo
 
-[Demo](https://nearmint.github.io/todolist)
+[Demo](https://maulwurfde.github.io/todolist)
 
 ## Built with
 
